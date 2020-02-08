@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Calendar c = Calendar.getInstance();
+        
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String formattedDate = df.format(c.getTime());
