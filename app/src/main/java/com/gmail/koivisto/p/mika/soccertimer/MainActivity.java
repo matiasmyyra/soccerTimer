@@ -40,37 +40,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         gameTime = new GameTime();
-        timerGetButton = (Button) findViewById(R.id.buttonGetTime);
-        String TAG = "onCreate";
-        Log.i(TAG, "Start!!");
+        timerGetButton = findViewById(R.id.buttonGetTime);
+        addTimeToTextView();
 
+    }
+        public void onClickTimeButton(View v) {
+            if (v.getId() == R.id.buttonGetTime) {
+                addTimeToTextView();
+            } else {
+                throw new IllegalStateException("Unexpected value: " + v.getId());
+            }
+        }
+
+    private void addTimeToTextView() {
+        String TAG = "addTimeToTextView";
+        Log.i(TAG, "Clicked!!");
         String formattedDate = gameTime.getCurrentTimeAndDate();
         // Now we display formattedDate value in TextView
         setContentView(R.layout.activity_main);
 
-        TextView newtext = (TextView) findViewById(R.id.currentTme);
+        TextView newtext = findViewById(R.id.currentTme);
+        String text;
+        text = getResources().getString(R.string.CurentDateAndTimeText) + formattedDate;
 
-        newtext.setText("Current Date and Time : "+formattedDate);
-
+        newtext.setText(text);
     }
-        public void onClickTimeButton(View v) {
-            switch(v.getId()) {
-                case R.id.buttonGetTime:
-                    String TAG = "button clik";
-                    Log.i(TAG, "Clicked!!");
-                    String formattedDate = gameTime.getCurrentTimeAndDate();
-                    // Now we display formattedDate value in TextView
-                    setContentView(R.layout.activity_main);
-
-                    TextView newtext = (TextView) findViewById(R.id.currentTme);
-
-                    newtext.setText("Current Date and Time : "+formattedDate);
-                    break;
-
-                default:
-                    throw new IllegalStateException("Unexpected value: " + v.getId());
-            }
-        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
