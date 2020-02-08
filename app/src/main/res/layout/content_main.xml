@@ -20,4 +20,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.108" />
 
+    <Button
+        android:id="@+id/buttonGetTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="123dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

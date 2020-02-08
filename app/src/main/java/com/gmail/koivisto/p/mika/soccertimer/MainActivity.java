@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,16 +38,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Calendar c = Calendar.getInstance();
-        
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        String formattedDate = df.format(c.getTime());
-
-        // formattedDate have current date/time
-        Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
-
-
+        String formattedDate = getCurrentTimeAndDate();
         // Now we display formattedDate value in TextView
         setContentView(R.layout.activity_main);
 
@@ -54,6 +47,35 @@ public class MainActivity extends AppCompatActivity {
 
         newtext.setText("Current Date and Time : "+formattedDate);
 
+    }
+        public void onClick(View v) {
+            switch(v.getId()) {
+                case R.id.buttonGetTime:
+                    String formattedDate = getCurrentTimeAndDate();
+                    // Now we display formattedDate value in TextView
+                    setContentView(R.layout.activity_main);
+
+                    TextView newtext = (TextView) findViewById(R.id.currentTme);
+
+                    newtext.setText("Current Date and Time : "+formattedDate);
+                    break;
+
+                default:
+                    throw new IllegalStateException("Unexpected value: " + v.getId());
+            }
+        }
+
+        public String getCurrentTimeAndDate() {
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String formattedDate = df.format(c.getTime());
+
+        // formattedDate have current date/time
+        Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
+
+        return formattedDate;
     }
 
     @Override
