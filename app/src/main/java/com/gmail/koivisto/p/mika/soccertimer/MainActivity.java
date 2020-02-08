@@ -23,6 +23,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     Button timerGetButton;
+    GameTime gameTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
+        gameTime = new GameTime();
         timerGetButton = (Button) findViewById(R.id.buttonGetTime);
         String TAG = "onCreate";
         Log.i(TAG, "Start!!");
-        String formattedDate = getCurrentTimeAndDate();
+
+        String formattedDate = gameTime.getCurrentTimeAndDate();
         // Now we display formattedDate value in TextView
         setContentView(R.layout.activity_main);
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.buttonGetTime:
                     String TAG = "button clik";
                     Log.i(TAG, "Clicked!!");
-                    String formattedDate = getCurrentTimeAndDate();
+                    String formattedDate = gameTime.getCurrentTimeAndDate();
                     // Now we display formattedDate value in TextView
                     setContentView(R.layout.activity_main);
 
@@ -69,19 +71,6 @@ public class MainActivity extends AppCompatActivity {
                     throw new IllegalStateException("Unexpected value: " + v.getId());
             }
         }
-
-        public String getCurrentTimeAndDate() {
-        Calendar c = Calendar.getInstance();
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        String formattedDate = df.format(c.getTime());
-
-        // formattedDate have current date/time
-        Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
-
-        return formattedDate;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
