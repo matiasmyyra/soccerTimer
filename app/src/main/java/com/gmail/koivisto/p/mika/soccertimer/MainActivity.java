@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    Button timerGetButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        timerGetButton = (Button) findViewById(R.id.buttonGetTime);
+        String TAG = "onCreate";
+        Log.i(TAG, "Start!!");
         String formattedDate = getCurrentTimeAndDate();
         // Now we display formattedDate value in TextView
         setContentView(R.layout.activity_main);
@@ -48,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
         newtext.setText("Current Date and Time : "+formattedDate);
 
     }
-        public void onClick(View v) {
+        public void onClickTimeButton(View v) {
             switch(v.getId()) {
                 case R.id.buttonGetTime:
+                    String TAG = "button clik";
+                    Log.i(TAG, "Clicked!!");
                     String formattedDate = getCurrentTimeAndDate();
                     // Now we display formattedDate value in TextView
                     setContentView(R.layout.activity_main);
