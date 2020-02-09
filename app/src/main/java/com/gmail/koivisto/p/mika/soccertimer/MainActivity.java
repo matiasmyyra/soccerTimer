@@ -19,11 +19,13 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
     Button timerGetButton;
     GameTime gameTime;
+    GameData gameData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         gameTime = new GameTime();
+        gameData = new GameData();
         timerGetButton = findViewById(R.id.buttonGetTime);
+        initData();
         addTimeToTextView();
 
     }
@@ -55,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
     private void addTimeToTextView() {
         String TAG = "addTimeToTextView";
         Log.i(TAG, "Clicked!!");
-        String formattedDate = gameTime.getCurrentTimeAndDate();
+
+        String formattedDate = gameTime.getCurrentTimeAndDateStr();
+
         // Now we display formattedDate value in TextView
         setContentView(R.layout.activity_main);
 
@@ -64,6 +70,16 @@ public class MainActivity extends AppCompatActivity {
         text = getResources().getString(R.string.CurentDateAndTimeText) + formattedDate;
 
         newtext.setText(text);
+    }
+    private void initData() {
+        String TAG = "initData";
+        Log.i(TAG, "init start");
+        gameData.setGameStartTime(gameTime.getCurrentTimeAndDate());
+        gameData.setGameMode(GameMode.GAME_MODE_8VS8);
+        int goalkeeper = 1;
+        int[] tactic ={1,3,3,goalkeeper};
+        gameData.gameTactics.setNumLayers(tactic.length);
+        gameData.gameTactics.setNumOfPlayerInTheLayers(tactic);
     }
 
     @Override
