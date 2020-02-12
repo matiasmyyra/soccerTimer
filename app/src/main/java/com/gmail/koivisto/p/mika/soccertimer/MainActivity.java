@@ -80,37 +80,38 @@ public class MainActivity extends AppCompatActivity {
         int[] tactic ={1,3,3,goalkeeper};
         gameData.gameTactics.setNumLayers(tactic.length);
         gameData.gameTactics.setNumOfPlayerInTheLayers(tactic);
-
-        String[] palayersName  = {"Kallela Anna",
-        "Kilpelänaho Maria",
-        "Leppälä Iina",
-        "Nieminen Jemina",
-        "Niiranen Ella",
-        "Nylund Laura",
-        "Nylund Emilia",
-        "Pehkonen Minnea",
-        "Äijälä Iina-Aurora",
-        "Karekivi Meriina",
-        "Mustonen  Mira",
-        "Määttä Eetla",
-        "Palosaari Helinä",
-        "Kaurala Silja",
-        "Brusi Tia",
-        "Alanen Helmi",
-        "Poukkula Martta",
-        "Alila Emilia",
-        "Kallela Sofia",
-        "Kolehmainen Maija",
-        "Koivisto Amanda",
-        "Ervasti Emilia",
-        "Niemelä Iina",
-        "Valkonen Maini",
-        "Krasniqi Rina",
-        "Lastikka Heidi"};
-
-        gameData.setPlayerNames(palayersName);
+        gameData.setPlayerNames(getStringsPlayersNames());
 
 
+    }
+
+    private String[] getStringsPlayersNames() {
+        return new String[]{"Kallela Anna",
+            "Kilpelänaho Maria",
+            "Leppälä Iina",
+            "Nieminen Jemina",
+            "Niiranen Ella",
+            "Nylund Laura",
+            "Nylund Emilia",
+            "Pehkonen Minnea",
+            "Äijälä Iina-Aurora",
+            "Karekivi Meriina",
+            "Mustonen  Mira",
+            "Määttä Eetla",
+            "Palosaari Helinä",
+            "Kaurala Silja",
+            "Brusi Tia",
+            "Alanen Helmi",
+            "Poukkula Martta",
+            "Alila Emilia",
+            "Kallela Sofia",
+            "Kolehmainen Maija",
+            "Koivisto Amanda",
+            "Ervasti Emilia",
+            "Niemelä Iina",
+            "Valkonen Maini",
+            "Krasniqi Rina",
+            "Lastikka Heidi"};
     }
 
     @Override
