@@ -1,6 +1,7 @@
 package com.gmail.koivisto.p.mika.soccertimer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 enum GameMode {
@@ -26,7 +27,25 @@ public class GameData {
     public void setGameStartTime(Date gameStartTime) {
         this.gameStartTime = gameStartTime;
     }
-    public void setPlayer(Player p) { players.add(p); }
+    public static Date intialZeroTime(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
+    public void setPlayer(Player p) {
+        Date newDate = new Date();
+        p.gameTime = Calendar.getInstance();
+        p.gameTime.set(Calendar.HOUR_OF_DAY, 0);
+        p.gameTime.set(Calendar.MINUTE, 0);
+        p.gameTime.set(Calendar.SECOND, 0);
+        p.gameTime.set(Calendar.MILLISECOND, 0);
+        players.add(p);
+    }
     public void setPlayerNames(String[] palayersName) {
         for (int i = 0; i < palayersName.length; i++) {
             Player p = new Player();

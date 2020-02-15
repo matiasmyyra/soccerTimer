@@ -1,4 +1,13 @@
 package com.gmail.koivisto.p.mika.soccertimer;
+// e.g. int[] tactic ={1,3,3,goalkeeper};    1-3-3  8vs8
+//      ..............  Row
+//             0          3
+//        0    0    0     2
+//        0    0    0     1
+//
+//             0          0
+//      ......___......
+//column  0    1    2
 
 public class GameTactics {
     int numLayers;
