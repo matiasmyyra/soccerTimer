@@ -18,7 +18,8 @@ public class GameData {
     int numOfPlayers;
     ArrayList<Player> players = new ArrayList<Player>();
 
-    public void setGameMode(GameMode gameMode) {
+    public void setGameMode(GameMode gameMode)
+    {
         this.gameMode = gameMode;
     }
 
