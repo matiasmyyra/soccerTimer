@@ -61,6 +61,18 @@ public class GameDataUnitTest {
 
 
     }
+    @Test
+    public void testInvalidColumParameterPlayer() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData(sut);
+        Player p = new Player();
+        getPlayerTestData("Teppo Tattimaa",p);
+        p.playerLocationColumn = 1;
+        assertEquals(false,sut.setPlayer(p));
+        assertEquals(0,sut.getNumOfPlayers());
+
+
+    }
 
     private int[]  setGameModeAndTacticTestData(GameData sut) {
         sut.setGameMode(GameMode.GAME_MODE_8VS8);

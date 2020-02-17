@@ -30,4 +30,14 @@ public class GameTactics {
         return (this.numOfPlayerInTheLayers.length > playerLocationRow);
 
     }
+
+    public boolean isValidColumn(int playerLocationRow, int playerLocationColumn) {
+        boolean resp = true;
+        if(numOfPlayerInTheLayers[playerLocationRow] > playerLocationColumn) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

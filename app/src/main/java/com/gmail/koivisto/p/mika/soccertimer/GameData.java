@@ -38,7 +38,9 @@ public class GameData {
     }
 
     public boolean setPlayer(Player p) {
-        if(gameTactics.isValidRow(p.playerLocationRow)) {
+        if(gameTactics.isValidRow(p.playerLocationRow) &&
+                gameTactics.isValidColumn(p.playerLocationRow,p.playerLocationColumn)) {
+
 
 
             Date newDate = new Date();
