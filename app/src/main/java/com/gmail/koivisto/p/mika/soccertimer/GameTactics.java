@@ -21,11 +21,8 @@ public class GameTactics {
         return numLayers;
     }
 
-    public void setNumLayers(int numLayers) {
-        this.numLayers = numLayers;
-    }
-
     public void setNumOfPlayerInTheLayers(int[] numOfPlayerInTheLayers) {
         this.numOfPlayerInTheLayers = numOfPlayerInTheLayers;
+        this.numLayers = numOfPlayerInTheLayers.length;
     }
 }

@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         gameData.setGameMode(GameMode.GAME_MODE_8VS8);
         int goalkeeper = 1;
         int[] tactic ={1,3,3,goalkeeper};
-        gameData.gameTactics.setNumLayers(tactic.length);
         gameData.gameTactics.setNumOfPlayerInTheLayers(tactic);
         gameData.setPlayerNames(getStringsPlayersNames());
 

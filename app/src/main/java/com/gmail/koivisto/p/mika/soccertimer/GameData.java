@@ -54,4 +54,16 @@ public class GameData {
 
         }
     }
+
+    public Player getPlayer(String name) {
+        for (int counter = 0; counter < players.size(); counter++) {
+            if(players.get(counter).name == name) {
+                return players.get(counter);
+            }
+        }
+        return null;
+    }
+    public int getNumOfPlayers() {
+        return players.size();
+    }
 }
