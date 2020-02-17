@@ -25,4 +25,9 @@ public class GameTactics {
         this.numOfPlayerInTheLayers = numOfPlayerInTheLayers;
         this.numLayers = numOfPlayerInTheLayers.length;
     }
+
+    public boolean isValidRow(int playerLocationRow) {
+        return (this.numOfPlayerInTheLayers.length > playerLocationRow);
+
+    }
 }

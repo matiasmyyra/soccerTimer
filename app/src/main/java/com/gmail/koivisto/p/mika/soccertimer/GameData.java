@@ -37,14 +37,23 @@ public class GameData {
         return cal.getTime();
     }
 
-    public void setPlayer(Player p) {
-        Date newDate = new Date();
-        p.gameTime = Calendar.getInstance();
-        p.gameTime.set(Calendar.HOUR_OF_DAY, 0);
-        p.gameTime.set(Calendar.MINUTE, 0);
-        p.gameTime.set(Calendar.SECOND, 0);
-        p.gameTime.set(Calendar.MILLISECOND, 0);
-        players.add(p);
+    public boolean setPlayer(Player p) {
+        if(gameTactics.isValidRow(p.playerLocationRow)) {
+
+
+            Date newDate = new Date();
+            p.gameTime = Calendar.getInstance();
+            p.gameTime.set(Calendar.HOUR_OF_DAY, 0);
+            p.gameTime.set(Calendar.MINUTE, 0);
+            p.gameTime.set(Calendar.SECOND, 0);
+            p.gameTime.set(Calendar.MILLISECOND, 0);
+            players.add(p);
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
     public void setPlayerNames(String[] palayersName) {
         for (int i = 0; i < palayersName.length; i++) {

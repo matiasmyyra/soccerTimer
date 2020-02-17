@@ -49,8 +49,20 @@ public class GameDataUnitTest {
         assertEquals(null,sut.getPlayer("Taavi joka ei ole joukkueessa"));
 
     }
+    @Test
+    public void testInvalidRowParameterPlayer() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData(sut);
+        Player p = new Player();
+        getPlayerTestData("Teppo Tattimaa",p);
+        p.playerLocationRow = tactic.length;
+        assertEquals(false,sut.setPlayer(p));
+        assertEquals(0,sut.getNumOfPlayers());
 
-    private void setGameModeAndTacticTestData(GameData sut) {
+
+    }
+
+    private int[]  setGameModeAndTacticTestData(GameData sut) {
         sut.setGameMode(GameMode.GAME_MODE_8VS8);
         int goalkeeper = 1;
         int[] tactic ={1,3,3,goalkeeper};
@@ -63,6 +75,7 @@ public class GameDataUnitTest {
         //      ......___......
         //column  0    1    2
         sut.gameTactics.setNumOfPlayerInTheLayers(tactic);
+        return tactic;
     }
 
     private Player getPlayerTestData(String name) {
@@ -72,6 +85,13 @@ public class GameDataUnitTest {
         p.playerLocationRow = 3;
         p.playerLocationColumn = 0;
         return p;
+    }
+    private void getPlayerTestData(String name,Player p) {
+        p.name = name;
+        p.exchangePalyer =false;
+        p.playerLocationRow = 3;
+        p.playerLocationColumn = 0;
+
     }
 
 
