@@ -1,9 +1,6 @@
 package com.gmail.koivisto.p.mika.soccertimer;
 
-import android.util.Log;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +31,7 @@ public class GameDataUnitTest {
         Player p = getPlayerTestData("Tintti Tiipetissä");
         sut.setPlayer(p);
         assertEquals(p,sut.getPlayer(p.name));
-        assertEquals(null,sut.getPlayer("Taavi joka ei ole joukkueessa"));
+        assertNull(sut.getPlayer("Taavi joka ei ole joukkueessa"));
     }
 
     @Test
@@ -50,7 +47,7 @@ public class GameDataUnitTest {
         assertEquals(p,sut.getPlayer(p.name));
         assertEquals(p2,sut.getPlayer(p2.name));
 
-        assertEquals(null,sut.getPlayer("Taavi joka ei ole joukkueessa"));
+        assertNull(sut.getPlayer("Taavi joka ei ole joukkueessa"));
 
     }
     @Test
@@ -60,7 +57,7 @@ public class GameDataUnitTest {
         Player p = new Player();
         getPlayerTestData("Teppo Tattimaa",p);
         p.playerLocationRow = tactic.length;
-        assertEquals(false,sut.setPlayer(p));
+        assertFalse(sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
 
@@ -68,11 +65,11 @@ public class GameDataUnitTest {
     @Test
     public void testInvalidColumParameterPlayer() {
         GameData sut = new GameData();
-        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        setGameModeAndTacticTestData8vs8(sut);
         Player p = new Player();
         getPlayerTestData("Teppo Tattimaa",p);
         p.playerLocationColumn = 1;
-        assertEquals(false,sut.setPlayer(p));
+        assertFalse(sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
 
@@ -96,7 +93,7 @@ public class GameDataUnitTest {
         dublicatePlayer.playerLocationColumn = column;
         dublicatePlayer.playerLocationRow = row;
         dublicatePlayer.exchangePalyer = false;
-        assertEquals(true, sut.setPlayer(dublicatePlayer));
+        assertTrue(sut.setPlayer(dublicatePlayer));
         assertEquals(Status.DUPLICATE_PLAYER_IN_SAME_LOCATION,sut.isStartingFieldSet());
     }
 
@@ -109,7 +106,7 @@ public class GameDataUnitTest {
                 p.playerLocationColumn = column;
                 p.playerLocationRow = row;
                 p.exchangePalyer = false;
-                assertEquals(true, sut.setPlayer(p));
+                assertTrue(sut.setPlayer(p));
                 numberOfPalyer++;
             }
         }
