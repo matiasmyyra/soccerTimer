@@ -26,7 +26,7 @@ public class GameDataUnitTest {
     @Test
     public void testAddOnePlayer() {
         GameData sut = new GameData();
-        setGameModeAndTacticTestData(sut);
+        setGameModeAndTacticTestData8vs8(sut);
         Player p = getPlayerTestData("Tintti Tiipetissä");
         sut.setPlayer(p);
         assertEquals(p,sut.getPlayer(p.name));
@@ -36,7 +36,7 @@ public class GameDataUnitTest {
     @Test
     public void testAddTwoPlayer() {
         GameData sut = new GameData();
-        setGameModeAndTacticTestData(sut);
+        setGameModeAndTacticTestData8vs8(sut);
         Player p = getPlayerTestData("Teppo Tattimaa");
         sut.setPlayer(p);
         assertEquals(1,sut.getNumOfPlayers());
@@ -52,7 +52,7 @@ public class GameDataUnitTest {
     @Test
     public void testInvalidRowParameterPlayer() {
         GameData sut = new GameData();
-        int[] tactic = setGameModeAndTacticTestData(sut);
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         Player p = new Player();
         getPlayerTestData("Teppo Tattimaa",p);
         p.playerLocationRow = tactic.length;
@@ -64,7 +64,7 @@ public class GameDataUnitTest {
     @Test
     public void testInvalidColumParameterPlayer() {
         GameData sut = new GameData();
-        int[] tactic = setGameModeAndTacticTestData(sut);
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         Player p = new Player();
         getPlayerTestData("Teppo Tattimaa",p);
         p.playerLocationColumn = 1;
@@ -74,9 +74,14 @@ public class GameDataUnitTest {
 
     }
     @Test
-    public void testAddStartingPlayer() {
+    public void testAddStartingPlayer8vs8() {
         GameData sut = new GameData();
-        int[] tactic = setGameModeAndTacticTestData(sut);
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        addStartinPlayer8vs8(sut, tactic);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+    }
+
+    private void addStartinPlayer8vs8(GameData sut, int[] tactic) {
         int numberOfPalyer = 0;
         for(int row = 0; row < tactic.length; row++) {
             for(int column = 0; column < tactic[row]; column++) {
@@ -90,10 +95,9 @@ public class GameDataUnitTest {
             }
         }
         assertEquals(8, numberOfPalyer);
-        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
     }
 
-    private int[]  setGameModeAndTacticTestData(GameData sut) {
+    private int[] setGameModeAndTacticTestData8vs8(GameData sut) {
         sut.setGameMode(GameMode.GAME_MODE_8VS8);
         int goalkeeper = 1;
         int[] tactic ={1,3,3,goalkeeper};
