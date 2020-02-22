@@ -1,5 +1,7 @@
 package com.gmail.koivisto.p.mika.soccertimer;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -76,5 +78,36 @@ public class GameData {
     }
     public int getNumOfPlayers() {
         return players.size();
+    }
+
+    public Status isStartingFieldSet() {
+        final String TAG = "isStartingFieldSet";
+        Status success = Status.NO_ERROR;
+        outerloop:
+        for(int row = 0; row < gameTactics.numOfPlayerInTheLayers.length; row++) {
+            for(int column = 0; column < gameTactics.numOfPlayerInTheLayers[row]; column++) {
+                int numOfPlayersStartingFieldInOneLocation = 0;
+                for(Player p : players) {
+                    if(p.playerLocationColumn == column && p.playerLocationRow == row &&
+                            p.exchangePalyer == false){
+                        numOfPlayersStartingFieldInOneLocation++;
+                    }
+                }
+                if(numOfPlayersStartingFieldInOneLocation > 1){
+                    success = Status.DUPLICATE_PLAYER_IN_SAME_LOCATION;
+                    Log.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
+                    break outerloop;
+
+                }
+                else if(numOfPlayersStartingFieldInOneLocation == 0) {
+                    success = Status.NO_PLAYER_AT_ALL_IN_LOCATION;
+                    Log.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
+                    break outerloop;
+                }
+
+
+            }
+        }
+        return  success;
     }
 }

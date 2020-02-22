@@ -73,6 +73,25 @@ public class GameDataUnitTest {
 
 
     }
+    @Test
+    public void testAddStartingPlayer() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData(sut);
+        int numberOfPalyer = 0;
+        for(int row = 0; row < tactic.length; row++) {
+            for(int column = 0; column < tactic[row]; column++) {
+                Player p = new Player();
+                getPlayerTestData("PlayerName_"+column+"_"+row, p);
+                p.playerLocationColumn = column;
+                p.playerLocationRow = row;
+                p.exchangePalyer = false;
+                assertEquals(true, sut.setPlayer(p));
+                numberOfPalyer++;
+            }
+        }
+        assertEquals(8, numberOfPalyer);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+    }
 
     private int[]  setGameModeAndTacticTestData(GameData sut) {
         sut.setGameMode(GameMode.GAME_MODE_8VS8);
