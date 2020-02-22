@@ -82,18 +82,18 @@ public class GameDataUnitTest {
         assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
     }
     @Test
-    public void testAddDublicateStartingPlayer8vs8() {
+    public void testAddDuplicateStartingPlayer8vs8() {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         addStartinPlayer8vs8(sut, tactic);
-        Player dublicatePlayer = new Player();
+        Player duplicatedPlayer = new Player();
         int row = 0;
         int column = 0;
-        getPlayerTestData("PlayerName_"+column+"_"+row, dublicatePlayer);
-        dublicatePlayer.playerLocationColumn = column;
-        dublicatePlayer.playerLocationRow = row;
-        dublicatePlayer.exchangePalyer = false;
-        assertTrue(sut.setPlayer(dublicatePlayer));
+        getPlayerTestData("PlayerName_"+column+"_"+row, duplicatedPlayer);
+        duplicatedPlayer.playerLocationColumn = column;
+        duplicatedPlayer.playerLocationRow = row;
+        duplicatedPlayer.exchangePalyer = false;
+        assertTrue(sut.setPlayer(duplicatedPlayer));
         assertEquals(Status.DUPLICATE_PLAYER_IN_SAME_LOCATION,sut.isStartingFieldSet());
     }
 
