@@ -1,7 +1,5 @@
 package com.gmail.koivisto.p.mika.soccertimer;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -95,13 +93,13 @@ public class GameData {
                 }
                 if(numOfPlayersStartingFieldInOneLocation > 1){
                     success = Status.DUPLICATE_PLAYER_IN_SAME_LOCATION;
-                    Log.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
+                    MyLog.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
                     break outerloop;
 
                 }
                 else if(numOfPlayersStartingFieldInOneLocation == 0) {
                     success = Status.NO_PLAYER_AT_ALL_IN_LOCATION;
-                    Log.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
+                    MyLog.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
                     break outerloop;
                 }
 

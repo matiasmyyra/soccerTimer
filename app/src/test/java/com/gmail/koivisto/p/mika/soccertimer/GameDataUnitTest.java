@@ -1,8 +1,12 @@
 package com.gmail.koivisto.p.mika.soccertimer;
 
+import android.util.Log;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+
 
 public class GameDataUnitTest {
     @Test
@@ -79,6 +83,21 @@ public class GameDataUnitTest {
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         addStartinPlayer8vs8(sut, tactic);
         assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+    }
+    @Test
+    public void testAddDublicateStartingPlayer8vs8() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        addStartinPlayer8vs8(sut, tactic);
+        Player dublicatePlayer = new Player();
+        int row = 0;
+        int column = 0;
+        getPlayerTestData("PlayerName_"+column+"_"+row, dublicatePlayer);
+        dublicatePlayer.playerLocationColumn = column;
+        dublicatePlayer.playerLocationRow = row;
+        dublicatePlayer.exchangePalyer = false;
+        assertEquals(true, sut.setPlayer(dublicatePlayer));
+        assertEquals(Status.DUPLICATE_PLAYER_IN_SAME_LOCATION,sut.isStartingFieldSet());
     }
 
     private void addStartinPlayer8vs8(GameData sut, int[] tactic) {
