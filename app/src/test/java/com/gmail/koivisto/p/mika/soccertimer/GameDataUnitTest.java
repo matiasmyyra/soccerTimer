@@ -6,7 +6,9 @@ import static org.junit.Assert.*;
 
 
 public class GameDataUnitTest {
-    static int countPlayer = 0;
+
+    private static int countPlayer =0;
+
     @Test
     public void testGameModeSet() {
         GameData sut = new GameData();
@@ -57,7 +59,8 @@ public class GameDataUnitTest {
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         Player p = new Player();
         getPlayerTestData("Teppo Tattimaa",p);
-        p.playerLocationRow = tactic.length;
+        p.location.clear();
+        addLocation(p,tactic.length,0);
         assertFalse(sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
@@ -69,7 +72,8 @@ public class GameDataUnitTest {
         setGameModeAndTacticTestData8vs8(sut);
         Player p = new Player();
         getPlayerTestData("Teppo Tattimaa",p);
-        p.playerLocationColumn = 1;
+        p.location.clear();
+        addLocation(p,0,100);
         assertFalse(sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
@@ -91,8 +95,7 @@ public class GameDataUnitTest {
         int row = 0;
         int column = 0;
         getPlayerTestData("PlayerName_"+column+"_"+row, duplicatedPlayer);
-        duplicatedPlayer.playerLocationColumn = column;
-        duplicatedPlayer.playerLocationRow = row;
+        addLocation(duplicatedPlayer,row,column);
         duplicatedPlayer.exchangePalyer = false;
         assertTrue(sut.setPlayer(duplicatedPlayer));
         assertEquals(Status.DUPLICATE_PLAYER_IN_SAME_LOCATION,sut.isStartingFieldSet());
@@ -119,8 +122,8 @@ public class GameDataUnitTest {
         countPlayer++;
         Player p = new Player();
         getPlayerTestData("PlayerName_" + column + "_" + row + "_" + countPlayer, p);
-        p.playerLocationColumn = column;
-        p.playerLocationRow = row;
+        p.location.clear();
+        addLocation(p,row,column);
         p.exchangePalyer = exchangePlayer;
         assertTrue(sut.setPlayer(p));
     }
@@ -157,15 +160,22 @@ public class GameDataUnitTest {
         Player p = new Player();
         p.name = name;
         p.exchangePalyer =false;
-        p.playerLocationRow = 3;
-        p.playerLocationColumn = 0;
+        addLocation(p,0,0);
+
         return p;
     }
+
+    private void addLocation(Player p, int row, int column) {
+        LocationInTheFiled l = new LocationInTheFiled();
+        l.playerLocationRow = row;
+        l.playerLocationColumn = column;
+        p.location.add(l);
+    }
+
     private void getPlayerTestData(String name,Player p) {
         p.name = name;
         p.exchangePalyer =false;
-        p.playerLocationRow = 3;
-        p.playerLocationColumn = 0;
+        addLocation(p,0,0);
 
     }
 

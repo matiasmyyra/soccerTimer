@@ -9,6 +9,7 @@ enum GameMode {
     GAME_MODE_5VS5,
     GAME_MODE_11VS11
 }
+
 public class GameData {
     GameMode gameMode;
     GameTactics gameTactics = new GameTactics();
@@ -38,11 +39,15 @@ public class GameData {
     }
 
     public boolean setPlayer(Player p) {
-        if(gameTactics.isValidRow(p.playerLocationRow) &&
-                gameTactics.isValidColumn(p.playerLocationRow,p.playerLocationColumn)) {
+        boolean locationIsValid = true;
+        for (LocationInTheFiled l : p.location) {
+            if(!gameTactics.isValidRow(l.playerLocationRow) ||
+                    !gameTactics.isValidColumn(l.playerLocationRow,l.playerLocationColumn)) {
+                locationIsValid = false;
+            }
+        }
 
-
-
+        if(locationIsValid) {
             Date newDate = new Date();
             p.gameTime = Calendar.getInstance();
             p.gameTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -86,9 +91,11 @@ public class GameData {
             for(int column = 0; column < gameTactics.numOfPlayerInTheLayers[row]; column++) {
                 int numOfPlayersStartingFieldInOneLocation = 0;
                 for(Player p : players) {
-                    if(p.playerLocationColumn == column && p.playerLocationRow == row &&
-                            p.exchangePalyer == false){
-                        numOfPlayersStartingFieldInOneLocation++;
+                    for (LocationInTheFiled l : p.location) {
+                        if (l.playerLocationColumn == column && l.playerLocationRow == row &&
+                                p.exchangePalyer == false) {
+                            numOfPlayersStartingFieldInOneLocation++;
+                        }
                     }
                 }
                 if(numOfPlayersStartingFieldInOneLocation > 1){

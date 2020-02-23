@@ -1,12 +1,12 @@
 package com.gmail.koivisto.p.mika.soccertimer;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Player {
     String name;
     Calendar gameTime;
-    int playerLocationRow;
-    int playerLocationColumn;
+    ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
     Boolean exchangePalyer;
 }
 //Row =   playerLocationRow
