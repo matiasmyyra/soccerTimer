@@ -38,12 +38,12 @@ public class GameData {
         return cal.getTime();
     }
 
-    public boolean setPlayer(Player p) {
-        boolean locationIsValid = true;
+    public Status setPlayer(Player p) {
+        Status locationIsValid = Status.NO_ERROR;
         for (LocationInTheFiled l : p.location) {
             if(!gameTactics.isValidRow(l.playerLocationRow) ||
                     !gameTactics.isValidColumn(l.playerLocationRow,l.playerLocationColumn)) {
-                locationIsValid = false;
+                locationIsValid = Status.PLAYER_ROW_OR_COLUMN_NOT_VALID;
             }
         }
 
@@ -90,11 +90,19 @@ public class GameData {
         for(int row = 0; row < gameTactics.numOfPlayerInTheLayers.length; row++) {
             for(int column = 0; column < gameTactics.numOfPlayerInTheLayers[row]; column++) {
                 int numOfPlayersStartingFieldInOneLocation = 0;
+                int numOfSameLocation = 0;
                 for(Player p : players) {
                     for (LocationInTheFiled l : p.location) {
                         if (l.playerLocationColumn == column && l.playerLocationRow == row &&
                                 p.exchangePalyer == false) {
                             numOfPlayersStartingFieldInOneLocation++;
+                        }
+                    }
+                    for (LocationInTheFiled l : p.location) {
+                        for (LocationInTheFiled l2 : p.location) {
+                            if (l.playerLocationColumn == l2.playerLocationColumn && l.playerLocationRow == l2.playerLocationRow) {
+                                numOfSameLocation++;
+                            }
                         }
                     }
                 }
@@ -106,6 +114,11 @@ public class GameData {
                 }
                 else if(numOfPlayersStartingFieldInOneLocation == 0) {
                     success = Status.NO_PLAYER_AT_ALL_IN_LOCATION;
+                    MyLog.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
+                    break outerloop;
+                }
+                else if(numOfSameLocation > 2) {
+                    success = Status.DUBLICATE_LOCATION_IN_SAME_PLAYER;
                     MyLog.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
                     break outerloop;
                 }

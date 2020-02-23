@@ -116,7 +116,7 @@ public class GameDataUnitTest {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         addStartinPlayer8vs8(sut, tactic);
-        ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
+
         //      ..............  Row
         //             0          3
         //        x    x    x     2
@@ -125,7 +125,7 @@ public class GameDataUnitTest {
         //             0          0
         //      ......___......
         //column  0    1    2
-
+        ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
         LocationInTheFiled l1 =new LocationInTheFiled();
         l1.playerLocationColumn = 0;
         l1.playerLocationRow = 2;
@@ -139,12 +139,14 @@ public class GameDataUnitTest {
         l3.playerLocationRow = 3;
         location.add(l3);
 
-        addOnePlayerPlayer(sut, 0, 0, true);
+        addOnePlayerMultibleLocation(sut,location, true);
         assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
     }
 
+
+
     @Test
-    public void testAddStartingPlayer8vs8AndOnrExchangePlayersInTwoLocationAndOneIsDublicate() {
+    public void testAddStartingPlayer8vs8AndOarExchangePlayersInTwoLocationAndOneIsDuplicate() {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         addStartinPlayer8vs8(sut, tactic);
@@ -173,6 +175,14 @@ public class GameDataUnitTest {
 
         addOnePlayerPlayer(sut, 0, 0, true);
         assertEquals(Status.DUBLICATE_LOCATION_IN_SAME_PLAYER,sut.isStartingFieldSet());
+    }
+
+    private void addOnePlayerMultibleLocation(GameData sut, ArrayList<LocationInTheFiled> location, boolean b) {
+        countPlayer++;
+        Player p = new Player();
+        getPlayerTestData("PlayerName_" + countPlayer, p);
+        p.location =location;
+        assertTrue(sut.setPlayer(p));
     }
 
     private void addOnePlayerPlayer(GameData sut, int row, int column, boolean exchangePlayer) {
