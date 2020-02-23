@@ -3,7 +3,8 @@ package com.gmail.koivisto.p.mika.soccertimer;
 public enum Status {
     NO_ERROR(1, "No error."),
     NO_PLAYER_AT_ALL_IN_LOCATION(2, "Two or More player in same location"),
-    DUPLICATE_PLAYER_IN_SAME_LOCATION(2, "Two or More player in same location");
+    DUPLICATE_PLAYER_IN_SAME_LOCATION(2, "Two or More player in same location"),
+    DUBLICATE_LOCATION_IN_SAME_PLAYER(2, "Playr's same location is set two or More time");
 
     private final int code;
     private final String description;
