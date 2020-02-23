@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 
 public class GameDataUnitTest {
+    static int countPlayer = 0;
     @Test
     public void testGameModeSet() {
         GameData sut = new GameData();
@@ -96,22 +97,45 @@ public class GameDataUnitTest {
         assertTrue(sut.setPlayer(duplicatedPlayer));
         assertEquals(Status.DUPLICATE_PLAYER_IN_SAME_LOCATION,sut.isStartingFieldSet());
     }
+    @Test
+    public void testAddStartingPlayer8vs8AndOnrExchangePlayersInSingleLocation() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        addStartinPlayer8vs8(sut, tactic);
+        addOnePlayerPlayer(sut, 0, 0, true);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+    }
+
+    @Test
+    public void testAddStartingPlayer8vs8AndOnrExchangePlayersInTwoLocation() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        addStartinPlayer8vs8(sut, tactic);
+        addOnePlayerPlayer(sut, 0, 0, true);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+    }
+
+    private void addOnePlayerPlayer(GameData sut, int row, int column, boolean exchangePlayer) {
+        countPlayer++;
+        Player p = new Player();
+        getPlayerTestData("PlayerName_" + column + "_" + row + "_" + countPlayer, p);
+        p.playerLocationColumn = column;
+        p.playerLocationRow = row;
+        p.exchangePalyer = exchangePlayer;
+        assertTrue(sut.setPlayer(p));
+    }
 
     private void addStartinPlayer8vs8(GameData sut, int[] tactic) {
         int numberOfPalyer = 0;
         for(int row = 0; row < tactic.length; row++) {
             for(int column = 0; column < tactic[row]; column++) {
-                Player p = new Player();
-                getPlayerTestData("PlayerName_"+column+"_"+row, p);
-                p.playerLocationColumn = column;
-                p.playerLocationRow = row;
-                p.exchangePalyer = false;
-                assertTrue(sut.setPlayer(p));
+                addOnePlayerPlayer(sut, row, column, false);
                 numberOfPalyer++;
             }
         }
         assertEquals(8, numberOfPalyer);
     }
+
 
     private int[] setGameModeAndTacticTestData8vs8(GameData sut) {
         sut.setGameMode(GameMode.GAME_MODE_8VS8);
