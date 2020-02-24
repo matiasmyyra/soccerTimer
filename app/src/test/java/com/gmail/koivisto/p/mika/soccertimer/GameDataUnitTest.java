@@ -97,6 +97,7 @@ public class GameDataUnitTest {
         int row = 0;
         int column = 0;
         getPlayerTestData("PlayerName_"+column+"_"+row, duplicatedPlayer);
+        duplicatedPlayer.location.clear();
         addLocation(duplicatedPlayer,row,column);
         duplicatedPlayer.exchangePalyer = false;
         assertEquals(Status.NO_ERROR,sut.setPlayer(duplicatedPlayer));
@@ -172,8 +173,7 @@ public class GameDataUnitTest {
         l3.playerLocationColumn = 1;
         l3.playerLocationRow = 2;
         location.add(l3);
-
-        addOnePlayerPlayer(sut, 0, 0, true);
+        addOnePlayerMultibleLocation(sut,location, true);
         assertEquals(Status.DUBLICATE_LOCATION_IN_SAME_PLAYER,sut.isStartingFieldSet());
     }
 

@@ -90,21 +90,30 @@ public class GameData {
         for(int row = 0; row < gameTactics.numOfPlayerInTheLayers.length; row++) {
             for(int column = 0; column < gameTactics.numOfPlayerInTheLayers[row]; column++) {
                 int numOfPlayersStartingFieldInOneLocation = 0;
-                int numOfSameLocation = 0;
+
                 for(Player p : players) {
                     for (LocationInTheFiled l : p.location) {
                         if (l.playerLocationColumn == column && l.playerLocationRow == row &&
-                                p.exchangePalyer == true) {
+                                p.exchangePalyer == false) {
                             numOfPlayersStartingFieldInOneLocation++;
                         }
                     }
                     for (LocationInTheFiled l : p.location) {
+                        int numOfSameLocation = 0;
                         for (LocationInTheFiled l2 : p.location) {
                             if (l.playerLocationColumn == l2.playerLocationColumn && l.playerLocationRow == l2.playerLocationRow) {
                                 numOfSameLocation++;
                             }
                         }
+                        if(numOfSameLocation > 1) {
+                            success = Status.DUBLICATE_LOCATION_IN_SAME_PLAYER;
+                            MyLog.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
+                            break outerloop;
+                        }
+
                     }
+
+
                 }
                 if(numOfPlayersStartingFieldInOneLocation > 1){
                     success = Status.DUPLICATE_PLAYER_IN_SAME_LOCATION;
@@ -117,11 +126,7 @@ public class GameData {
                     MyLog.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
                     break outerloop;
                 }
-                else if(numOfSameLocation > 2) {
-                    success = Status.DUBLICATE_LOCATION_IN_SAME_PLAYER;
-                    MyLog.e(TAG,success.getDescription()+" Column:"+column+" Row:"+row);
-                    break outerloop;
-                }
+
 
 
             }
