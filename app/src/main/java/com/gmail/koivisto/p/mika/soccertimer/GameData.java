@@ -39,15 +39,20 @@ public class GameData {
     }
 
     public Status setPlayer(Player p) {
-        Status locationIsValid = Status.NO_ERROR;
+        Status IsValid = Status.NO_ERROR;
         for (LocationInTheFiled l : p.location) {
             if(!gameTactics.isValidRow(l.playerLocationRow) ||
                     !gameTactics.isValidColumn(l.playerLocationRow,l.playerLocationColumn)) {
-                locationIsValid = Status.PLAYER_ROW_OR_COLUMN_NOT_VALID;
+                IsValid = Status.PLAYER_ROW_OR_COLUMN_NOT_VALID;
+            }
+        }
+        for (Player alreadyAddedPlayer : players) {
+            if(alreadyAddedPlayer.name.compareTo(p.name) == 0) {
+                IsValid = Status.SAME_NAME_IS_ALREADY_ADDED;
             }
         }
 
-        if(locationIsValid == Status.NO_ERROR) {
+        if(IsValid == Status.NO_ERROR) {
             Date newDate = new Date();
             p.gameTime = Calendar.getInstance();
             p.gameTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -55,10 +60,10 @@ public class GameData {
             p.gameTime.set(Calendar.SECOND, 0);
             p.gameTime.set(Calendar.MILLISECOND, 0);
             players.add(p);
-            return locationIsValid;
+            return IsValid;
         }
         else{
-            return locationIsValid;
+            return IsValid;
         }
 
     }

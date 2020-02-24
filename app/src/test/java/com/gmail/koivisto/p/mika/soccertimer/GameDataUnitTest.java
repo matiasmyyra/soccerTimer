@@ -56,6 +56,19 @@ public class GameDataUnitTest {
 
     }
     @Test
+    public void testAddDublicateName() {
+        GameData sut = new GameData();
+        setGameModeAndTacticTestData8vs8(sut);
+        Player p = getPlayerTestData("Teppo Tattimaa");
+        assertEquals(Status.NO_ERROR, sut.setPlayer(p));
+        assertEquals(1,sut.getNumOfPlayers());
+        Player p2 = getPlayerTestData("Teppo Tattimaa");
+        assertEquals(Status.SAME_NAME_IS_ALREADY_ADDED,sut.setPlayer(p2));
+        assertEquals(1,sut.getNumOfPlayers());
+
+
+    }
+    @Test
     public void testInvalidRowParameterPlayer() {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
