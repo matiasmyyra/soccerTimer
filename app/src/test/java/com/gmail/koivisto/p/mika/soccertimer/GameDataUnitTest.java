@@ -40,7 +40,7 @@ public class GameDataUnitTest {
     }
 
     @Test
-    public void testAddTwoPlayer() {
+    public void testAddTwoPlayerAndRemoveOnePlayer() {
         GameData sut = new GameData();
         setGameModeAndTacticTestData8vs8(sut);
         Player p = getPlayerTestData("Teppo Tattimaa");
@@ -51,8 +51,9 @@ public class GameDataUnitTest {
         assertEquals(2,sut.getNumOfPlayers());
         assertEquals(p,sut.getPlayer(p.name));
         assertEquals(p2,sut.getPlayer(p2.name));
-
         assertNull(sut.getPlayer("Taavi joka ei ole joukkueessa"));
+        assertEquals(Status.NO_ERROR,sut.removePlayer("Teppo Tattimaa"));
+        assertEquals(1,sut.getNumOfPlayers());
 
     }
     @Test
@@ -96,6 +97,13 @@ public class GameDataUnitTest {
     }
     @Test
     public void testAddStartingPlayer8vs8() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        addStartinPlayer8vs8(sut, tactic);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+    }
+    @Test
+    public void testAddStartingPlayer8vs8AndRemoveOnePlayer() {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         addStartinPlayer8vs8(sut, tactic);

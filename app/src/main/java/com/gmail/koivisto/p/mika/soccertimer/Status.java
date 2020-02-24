@@ -6,7 +6,8 @@ public enum Status {
     DUPLICATE_PLAYER_IN_SAME_LOCATION(3, "Two or More player in same location"),
     PLAYER_ROW_OR_COLUMN_NOT_VALID(4, "Player row or column not valid"),
     SAME_NAME_IS_ALREADY_ADDED(5, "Same Player is try add two times"),
-    DUBLICATE_LOCATION_IN_SAME_PLAYER(6, "Playr's same location is set two or More time");
+    DUBLICATE_LOCATION_IN_SAME_PLAYER(6, "Playr's same location is set two or More time"),
+    NOT_YET_IMPLEMENTED(7, "Implemtation not yet ready");
 
     private final int code;
     private final String description;

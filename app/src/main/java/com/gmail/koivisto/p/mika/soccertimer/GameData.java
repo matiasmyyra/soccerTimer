@@ -138,4 +138,8 @@ public class GameData {
         }
         return  success;
     }
+
+    public Status removePlayer(String name) {
+        return Status.NOT_YET_IMPLEMENTED;
+    }
 }
