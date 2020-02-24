@@ -63,7 +63,7 @@ public class GameDataUnitTest {
         getPlayerTestData("Teppo Tattimaa",p);
         p.location.clear();
         addLocation(p,tactic.length,0);
-        assertFalse(sut.setPlayer(p));
+        assertEquals(Status.PLAYER_ROW_OR_COLUMN_NOT_VALID,sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
 
@@ -76,7 +76,7 @@ public class GameDataUnitTest {
         getPlayerTestData("Teppo Tattimaa",p);
         p.location.clear();
         addLocation(p,0,100);
-        assertFalse(sut.setPlayer(p));
+        assertEquals(Status.PLAYER_ROW_OR_COLUMN_NOT_VALID,sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
 
@@ -99,7 +99,7 @@ public class GameDataUnitTest {
         getPlayerTestData("PlayerName_"+column+"_"+row, duplicatedPlayer);
         addLocation(duplicatedPlayer,row,column);
         duplicatedPlayer.exchangePalyer = false;
-        assertTrue(sut.setPlayer(duplicatedPlayer));
+        assertEquals(Status.NO_ERROR,sut.setPlayer(duplicatedPlayer));
         assertEquals(Status.DUPLICATE_PLAYER_IN_SAME_LOCATION,sut.isStartingFieldSet());
     }
     @Test
@@ -135,8 +135,8 @@ public class GameDataUnitTest {
         l2.playerLocationRow = 2;
         location.add(l2);
         LocationInTheFiled l3 =new LocationInTheFiled();
-        l3.playerLocationColumn = 1;
-        l3.playerLocationRow = 3;
+        l3.playerLocationColumn = 2;
+        l3.playerLocationRow = 2;
         location.add(l3);
 
         addOnePlayerMultibleLocation(sut,location, true);
@@ -177,12 +177,13 @@ public class GameDataUnitTest {
         assertEquals(Status.DUBLICATE_LOCATION_IN_SAME_PLAYER,sut.isStartingFieldSet());
     }
 
-    private void addOnePlayerMultibleLocation(GameData sut, ArrayList<LocationInTheFiled> location, boolean b) {
+    private void addOnePlayerMultibleLocation(GameData sut, ArrayList<LocationInTheFiled> location, boolean exchangePalyer) {
         countPlayer++;
         Player p = new Player();
         getPlayerTestData("PlayerName_" + countPlayer, p);
         p.location =location;
-        assertTrue(sut.setPlayer(p));
+        p.exchangePalyer = exchangePalyer;
+        assertEquals(Status.NO_ERROR,sut.setPlayer(p));
     }
 
     private void addOnePlayerPlayer(GameData sut, int row, int column, boolean exchangePlayer) {
@@ -192,7 +193,7 @@ public class GameDataUnitTest {
         p.location.clear();
         addLocation(p,row,column);
         p.exchangePalyer = exchangePlayer;
-        assertTrue(sut.setPlayer(p));
+        assertEquals(Status.NO_ERROR,sut.setPlayer(p));
     }
 
     private void addStartinPlayer8vs8(GameData sut, int[] tactic) {

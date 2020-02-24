@@ -47,7 +47,7 @@ public class GameData {
             }
         }
 
-        if(locationIsValid) {
+        if(locationIsValid == Status.NO_ERROR) {
             Date newDate = new Date();
             p.gameTime = Calendar.getInstance();
             p.gameTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -55,10 +55,10 @@ public class GameData {
             p.gameTime.set(Calendar.SECOND, 0);
             p.gameTime.set(Calendar.MILLISECOND, 0);
             players.add(p);
-            return true;
+            return locationIsValid;
         }
         else{
-            return false;
+            return locationIsValid;
         }
 
     }
@@ -94,7 +94,7 @@ public class GameData {
                 for(Player p : players) {
                     for (LocationInTheFiled l : p.location) {
                         if (l.playerLocationColumn == column && l.playerLocationRow == row &&
-                                p.exchangePalyer == false) {
+                                p.exchangePalyer == true) {
                             numOfPlayersStartingFieldInOneLocation++;
                         }
                     }
