@@ -57,6 +57,58 @@ public class GameDataUnitTest {
 
     }
     @Test
+    public void testAddTwoPlayerAndSwapLocation() {
+        GameData sut = new GameData();
+        setGameModeAndTacticTestData8vs8(sut);
+        String player1Name = "Teppo Tattimaa";
+        String player2Name = "Tiitinen Seppo";
+
+        //      ..............  Row
+        //             0          3
+        //        0    0    P1    2
+        //        0    P2    0     1
+        //
+        //             0          0
+        //      ......___......
+        //column  0    1    2
+
+        Player p1 = new Player();
+        getPlayerTestData(player1Name,p1);
+
+        p1.location.clear();
+        int p1_row = 2;
+        int p1_column = 2;
+        addLocation(p1,p1_row,p1_column);
+        assertEquals(Status.NO_ERROR, sut.setPlayer(p1));
+
+        Player p2 = new Player();
+        getPlayerTestData(player2Name,p2);
+
+        p2.location.clear();
+        int p2_row = 1;
+        int p2_column = 1;
+        addLocation(p2,p2_row,p2_column);
+        assertEquals(Status.NO_ERROR, sut.setPlayer(p2));
+
+        assertEquals(2,sut.getNumOfPlayers());
+
+        assertEquals(Status.NO_ERROR,sut.swapTwoPlayerLocation(player1Name,player2Name));
+
+        Player newP1 = getPlayerTestData(player1Name);
+        Player newP2 = getPlayerTestData(player2Name);
+
+        assertFalse(newP1.location.contains(p2.location));
+        assertFalse(newP2.location.contains(p1.location));
+        //      ..............  Row
+        //             0          3
+        //        0    0    P2    2
+        //        0    P1   0     1
+        //
+        //             0          0
+        //      ......___......
+        //column  0    1    2
+    }
+    @Test
     public void testAddDublicateName() {
         GameData sut = new GameData();
         setGameModeAndTacticTestData8vs8(sut);

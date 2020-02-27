@@ -150,4 +150,8 @@ public class GameData {
         }
         return Status.NO_ERROR;
     }
+
+    public Status swapTwoPlayerLocation(String player1Name, String player2Name) {
+        return Status.NOT_YET_IMPLEMENTED;
+    }
 }
