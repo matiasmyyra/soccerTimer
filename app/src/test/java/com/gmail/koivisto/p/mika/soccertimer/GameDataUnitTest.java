@@ -38,6 +38,20 @@ public class GameDataUnitTest {
         assertEquals(p,sut.getPlayer(p.name));
         assertNull(sut.getPlayer("Taavi joka ei ole joukkueessa"));
     }
+    @Test
+    public void markThePlayerAsInjured() {
+        GameData sut = new GameData();
+        setGameModeAndTacticTestData8vs8(sut);
+        Player p = getPlayerTestData("Tintti Tiipetissä");
+        sut.setPlayer(p);
+        assertEquals(p,sut.getPlayer(p.name));
+        assertEquals(Status.NO_ERROR,sut.setPlayerInjured(p.name));
+        Player pp1 = sut.getPlayer(p.name);
+        assertTrue(pp1.Injured);
+        assertEquals(Status.NO_ERROR,sut.setPlayerNotInjured(p.name));
+        Player pp2 = sut.getPlayer(p.name);
+        assertFalse(pp2.Injured);
+    }
 
     @Test
     public void testAddTwoPlayerAndRemoveOnePlayer() {
@@ -256,9 +270,6 @@ public class GameDataUnitTest {
         assertEquals(2,pp.location.get(1).playerLocationColumn);
 
     }
-
-
-
     @Test
     public void testAddStartingPlayer8vs8AndOarExchangePlayersInTwoLocationAndOneIsDuplicate() {
         GameData sut = new GameData();

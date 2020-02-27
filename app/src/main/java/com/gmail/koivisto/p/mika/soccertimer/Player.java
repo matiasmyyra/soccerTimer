@@ -8,6 +8,7 @@ public class Player {
     Calendar gameTime;
     ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
     Boolean exchangePalyer;
+    Boolean Injured;
 }
 //Row =   playerLocationRow
 //Colunm =playerLocationColumn;

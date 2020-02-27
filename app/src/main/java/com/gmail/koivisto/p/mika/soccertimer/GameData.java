@@ -158,4 +158,12 @@ public class GameData {
     public Status removePlayersLocation(String name, LocationInTheFiled l2) {
         return Status.NOT_YET_IMPLEMENTED;
     }
+
+    public Status setPlayerNotInjured(String name) {
+        return Status.NOT_YET_IMPLEMENTED;
+    }
+
+    public Status setPlayerInjured(String name) {
+        return Status.NOT_YET_IMPLEMENTED;
+    }
 }
