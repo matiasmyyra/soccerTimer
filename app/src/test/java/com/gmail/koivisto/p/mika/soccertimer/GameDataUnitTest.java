@@ -66,7 +66,7 @@ public class GameDataUnitTest {
         //      ..............  Row
         //             0          3
         //        0    0    P1    2
-        //        0    P2    0     1
+        //        0    P2    0    1
         //
         //             0          0
         //      ......___......
@@ -217,6 +217,46 @@ public class GameDataUnitTest {
         assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
     }
 
+    @Test
+    public void testAddStartingPlayer8vs8AndOExchangePlayersInThreeLocationAfterThatRemoveOneLocation() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        addStartinPlayer8vs8(sut, tactic);
+
+        //      ..............  Row
+        //             0          3
+        //        x    x    x     2
+        //        0    0    0     1
+        //
+        //             0          0
+        //      ......___......
+        //column  0    1    2
+        ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
+        LocationInTheFiled l1 =new LocationInTheFiled();
+        l1.playerLocationColumn = 0;
+        l1.playerLocationRow = 2;
+        location.add(l1);
+        LocationInTheFiled l2 =new LocationInTheFiled();
+        l2.playerLocationColumn = 1;
+        l2.playerLocationRow = 2;
+        location.add(l2);
+        LocationInTheFiled l3 =new LocationInTheFiled();
+        l3.playerLocationColumn = 2;
+        l3.playerLocationRow = 2;
+        location.add(l3);
+
+        String name = addOnePlayerMultibleLocation(sut,location, true);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+        assertEquals(Status.NO_ERROR,sut.removePlayersLocation(name,l2));
+        Player pp = sut.getPlayer(name);
+        assertEquals(2,pp.location.size());
+        assertEquals(0,pp.location.get(0).playerLocationRow);
+        assertEquals(2,pp.location.get(0).playerLocationColumn);
+        assertEquals(2,pp.location.get(1).playerLocationRow);
+        assertEquals(2,pp.location.get(1).playerLocationColumn);
+
+    }
+
 
 
     @Test
@@ -250,13 +290,15 @@ public class GameDataUnitTest {
         assertEquals(Status.DUBLICATE_LOCATION_IN_SAME_PLAYER,sut.isStartingFieldSet());
     }
 
-    private void addOnePlayerMultibleLocation(GameData sut, ArrayList<LocationInTheFiled> location, boolean exchangePalyer) {
+    private String addOnePlayerMultibleLocation(GameData sut, ArrayList<LocationInTheFiled> location, boolean exchangePalyer) {
         countPlayer++;
         Player p = new Player();
-        getPlayerTestData("PlayerName_" + countPlayer, p);
+        String name = "PlayerName_" + countPlayer;
+        getPlayerTestData(name, p);
         p.location =location;
         p.exchangePalyer = exchangePalyer;
         assertEquals(Status.NO_ERROR,sut.setPlayer(p));
+        return name;
     }
 
     private void addOnePlayerPlayer(GameData sut, int row, int column, boolean exchangePlayer) {

@@ -154,4 +154,8 @@ public class GameData {
     public Status swapTwoPlayerLocation(String player1Name, String player2Name) {
         return Status.NOT_YET_IMPLEMENTED;
     }
+
+    public Status removePlayersLocation(String name, LocationInTheFiled l2) {
+        return Status.NOT_YET_IMPLEMENTED;
+    }
 }
