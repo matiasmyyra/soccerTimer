@@ -3,6 +3,7 @@ package com.gmail.koivisto.p.mika.soccertimer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 enum GameMode {
     GAME_MODE_8VS8,
@@ -140,6 +141,13 @@ public class GameData {
     }
 
     public Status removePlayer(String name) {
-        return Status.NOT_YET_IMPLEMENTED;
+        Iterator itr = players.iterator();
+        while (itr.hasNext())
+        {
+            Player x = (Player)itr.next();
+            if (x.name.compareTo(name) == 0)
+                itr.remove();
+        }
+        return Status.NO_ERROR;
     }
 }
