@@ -152,11 +152,69 @@ public class GameData {
     }
 
     public Status swapTwoPlayerLocation(String player1Name, String player2Name) {
-        return Status.NOT_YET_IMPLEMENTED;
+        Status ret =Status.NO_ERROR;
+        Iterator itr = players.iterator();
+        Iterator itr2 = players.iterator();
+        boolean findPlayer1 = false;
+        boolean findPlayer2 = false;
+        Player x1 = null;
+        Player x2 = null;
+
+        while (itr.hasNext())
+        {
+            x1 = (Player)itr.next();
+            if (x1.name.compareTo(player1Name) == 0) {
+                findPlayer1 = true;
+                break;
+            }
+        }
+        while (itr2.hasNext())
+        {
+            x2 = (Player)itr2.next();
+            if (x2.name.compareTo(player2Name) == 0) {
+                findPlayer2 = true;
+                break;
+            }
+        }
+        if(findPlayer1 && findPlayer2){
+            ArrayList<LocationInTheFiled>  temp = x1.location;
+
+            x1.location = x2.location;
+            x2.location = temp;
+        }
+        else {
+
+            ret = Status.NO_PLAYRR_FIND;
+        }
+        return  ret;
+
     }
 
     public Status removePlayersLocation(String name, LocationInTheFiled l2) {
-        return Status.NOT_YET_IMPLEMENTED;
+        Status ret = Status.NO_ERROR;
+        Iterator itr = players.iterator();
+        boolean find = false;
+        outerloop:
+        while (itr.hasNext())
+        {
+            Player x = (Player)itr.next();
+            if (x.name.compareTo(name) == 0) {
+                Iterator itr2 = x.location.iterator();
+                while (itr2.hasNext()) {
+                    LocationInTheFiled l1 = (LocationInTheFiled) itr2.next();
+                    if (l1 == l2) {
+                        itr2.remove();
+                        find = true;
+                        break outerloop;
+                    }
+                }
+
+
+            }
+        }
+        if(!find)
+            ret = Status.NO_LOCATION_FIND;
+        return ret;
     }
 
     public Status setPlayerNotInjured(String name) {

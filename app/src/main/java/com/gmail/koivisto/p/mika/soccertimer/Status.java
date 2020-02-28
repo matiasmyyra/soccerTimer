@@ -7,7 +7,9 @@ public enum Status {
     PLAYER_ROW_OR_COLUMN_NOT_VALID(4, "Player row or column not valid"),
     SAME_NAME_IS_ALREADY_ADDED(5, "Same Player is try add two times"),
     DUBLICATE_LOCATION_IN_SAME_PLAYER(6, "Playr's same location is set two or More time"),
-    NOT_YET_IMPLEMENTED(7, "Implemtation not yet ready");
+    NO_PLAYRR_FIND(7, "Player not find"),
+    NO_LOCATION_FIND(8, "Player's location not find"),
+    NOT_YET_IMPLEMENTED(8, "Implemtation not yet ready");
 
     private final int code;
     private final String description;
