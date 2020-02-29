@@ -150,33 +150,27 @@ public class GameData {
         }
         return Status.NO_ERROR;
     }
-
+    private boolean findPlayer(String player1Name,Iterator itr) {
+        boolean find = false;
+        while (itr.hasNext()) {
+            Player x1 = (Player) itr.next();
+            if (x1.name.compareTo(player1Name) == 0) {
+                itr.previous();
+                find = true;
+                break;
+            }
+        }
+        return find;
+    }
     public Status swapTwoPlayerLocation(String player1Name, String player2Name) {
         Status ret =Status.NO_ERROR;
-        Iterator itr = players.iterator();
-        Iterator itr2 = players.iterator();
-        boolean findPlayer1 = false;
-        boolean findPlayer2 = false;
-        Player x1 = null;
-        Player x2 = null;
-
-        while (itr.hasNext())
-        {
-            x1 = (Player)itr.next();
-            if (x1.name.compareTo(player1Name) == 0) {
-                findPlayer1 = true;
-                break;
-            }
-        }
-        while (itr2.hasNext())
-        {
-            x2 = (Player)itr2.next();
-            if (x2.name.compareTo(player2Name) == 0) {
-                findPlayer2 = true;
-                break;
-            }
-        }
+        Iterator itr = players.iterator();;
+        boolean findPlayer1 = findPlayer(player1Name,itr);
+        Iterator itr2 =players.iterator();;
+        boolean findPlayer2 = findPlayer(player2Name,itr2);
         if(findPlayer1 && findPlayer2){
+            Player x1 = (Player) itr.next();
+            Player x2 = (Player) itr2.next();
             ArrayList<LocationInTheFiled>  temp = x1.location;
 
             x1.location = x2.location;
