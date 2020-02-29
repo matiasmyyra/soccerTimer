@@ -264,8 +264,8 @@ public class GameDataUnitTest {
         assertEquals(Status.NO_ERROR,sut.removePlayersLocation(name,l2));
         Player pp = sut.getPlayer(name);
         assertEquals(2,pp.location.size());
-        assertEquals(0,pp.location.get(0).playerLocationRow);
-        assertEquals(2,pp.location.get(0).playerLocationColumn);
+        assertEquals(2,pp.location.get(0).playerLocationRow);
+        assertEquals(0,pp.location.get(0).playerLocationColumn);
         assertEquals(2,pp.location.get(1).playerLocationRow);
         assertEquals(2,pp.location.get(1).playerLocationColumn);
 
