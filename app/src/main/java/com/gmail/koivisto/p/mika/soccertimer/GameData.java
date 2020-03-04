@@ -152,13 +152,16 @@ public class GameData {
     }
     private boolean findPlayer(String player1Name,Iterator itr) {
         boolean find = false;
-        while (itr.hasNext()) {
-            Player x1 = (Player) itr.next();
+        Iterator itrTemp= players.iterator();
+
+        while (itrTemp.hasNext()) {
+            Player x1 = (Player) itrTemp.next();
             if (x1.name.compareTo(player1Name) == 0) {
-                itr.previous();
                 find = true;
                 break;
             }
+            else
+                itr.next();
         }
         return find;
     }
@@ -212,10 +215,30 @@ public class GameData {
     }
 
     public Status setPlayerNotInjured(String name) {
-        return Status.NOT_YET_IMPLEMENTED;
+        Status ret = Status.NO_ERROR;
+        Iterator itr2 =players.iterator();;
+        findPlayer(name,itr2);
+        if(findPlayer(name,itr2)) {
+            Player x = (Player) itr2.next();
+            x.Injured = false;
+        }
+        else
+            ret = Status.NO_PLAYRR_FIND;
+
+        return ret;
     }
 
     public Status setPlayerInjured(String name) {
-        return Status.NOT_YET_IMPLEMENTED;
+        Status ret = Status.NO_ERROR;
+        Iterator itr2 =players.iterator();;
+        findPlayer(name,itr2);
+        if(findPlayer(name,itr2)) {
+            Player x = (Player) itr2.next();
+            x.Injured = true;
+        }
+        else
+            ret = Status.NO_PLAYRR_FIND;
+
+        return ret;
     }
 }
