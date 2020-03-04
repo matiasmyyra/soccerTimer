@@ -215,28 +215,22 @@ public class GameData {
     }
 
     public Status setPlayerNotInjured(String name) {
-        Status ret = Status.NO_ERROR;
-        Iterator itr2 =players.iterator();;
-        findPlayer(name,itr2);
-        if(findPlayer(name,itr2)) {
-            Player x = (Player) itr2.next();
-            x.Injured = false;
-        }
-        else
-            ret = Status.NO_PLAYRR_FIND;
-
-        return ret;
+        return setInjured(name, false);
     }
 
     public Status setPlayerInjured(String name) {
+        return setInjured(name, true);
+    }
+
+    private Status setInjured(String name, boolean b) {
         Status ret = Status.NO_ERROR;
-        Iterator itr2 =players.iterator();;
-        findPlayer(name,itr2);
-        if(findPlayer(name,itr2)) {
+        Iterator itr2 = players.iterator();
+        ;
+        findPlayer(name, itr2);
+        if (findPlayer(name, itr2)) {
             Player x = (Player) itr2.next();
-            x.Injured = true;
-        }
-        else
+            x.Injured = b;
+        } else
             ret = Status.NO_PLAYRR_FIND;
 
         return ret;
