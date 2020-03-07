@@ -3,8 +3,11 @@ package com.gmail.koivisto.p.mika.soccertimer;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 public class GameDataUnitTest {
@@ -213,22 +216,61 @@ public class GameDataUnitTest {
         //             0          0
         //      ......___......
         //column  0    1    2
+        setExchangePlayerThreeLocation02_12_22(sut, 2);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+    }
+
+    @Test
+    public void testStartGame() {
+        GameData sut = new GameData();
+        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
+        addStartinPlayer8vs8(sut, tactic);
+
+        //      ..............  Row
+        //             0          3
+        //        x    x    x     2
+        //        0    0    0     1
+        //
+        //             0          0
+        //      ......___......
+        //column  0    1    2
+        setExchangePlayerThreeLocation02_12_22(sut, 2);
+        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+        //Calendar gameStartTime sut.intialZeroTime
+        //sut.startFirstRound(gameStartTime);
+        /*
+        Iterator itr = sut.players.iterator();
+        while (itr.hasNext())
+        {
+            Player x = (Player)itr.next();
+            if (x.Injured == false) {
+                assertEquals(gameStartTime,x.gameTime);
+            }
+            else {
+                assertEquals(0,x.gameTime);
+
+            }
+        }
+         */
+
+    }
+
+    private void setExchangePlayerThreeLocation02_12_22(GameData sut, int row2Column) {
         ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
-        LocationInTheFiled l1 =new LocationInTheFiled();
+        LocationInTheFiled l1 = new LocationInTheFiled();
         l1.playerLocationColumn = 0;
         l1.playerLocationRow = 2;
         location.add(l1);
-        LocationInTheFiled l2 =new LocationInTheFiled();
+        LocationInTheFiled l2 = new LocationInTheFiled();
         l2.playerLocationColumn = 1;
         l2.playerLocationRow = 2;
         location.add(l2);
-        LocationInTheFiled l3 =new LocationInTheFiled();
-        l3.playerLocationColumn = 2;
+        LocationInTheFiled l3 = new LocationInTheFiled();
+        l3.playerLocationColumn = row2Column;
         l3.playerLocationRow = 2;
         location.add(l3);
 
-        addOnePlayerMultibleLocation(sut,location, true);
-        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
+        addOnePlayerMultibleLocation(sut, location, true);
     }
 
     @Test
@@ -275,29 +317,7 @@ public class GameDataUnitTest {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         addStartinPlayer8vs8(sut, tactic);
-        ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
-        //      ..............  Row
-        //             0          3
-        //        x    x    x     2
-        //        0    0    0     1
-        //
-        //             0          0
-        //      ......___......
-        //column  0    1    2
-
-        LocationInTheFiled l1 =new LocationInTheFiled();
-        l1.playerLocationColumn = 0;
-        l1.playerLocationRow = 2;
-        location.add(l1);
-        LocationInTheFiled l2 =new LocationInTheFiled();
-        l2.playerLocationColumn = 1;
-        l2.playerLocationRow = 2;
-        location.add(l2);
-        LocationInTheFiled l3 =new LocationInTheFiled();
-        l3.playerLocationColumn = 1;
-        l3.playerLocationRow = 2;
-        location.add(l3);
-        addOnePlayerMultibleLocation(sut,location, true);
+        setExchangePlayerThreeLocation02_12_22(sut, 1);
         assertEquals(Status.DUBLICATE_LOCATION_IN_SAME_PLAYER,sut.isStartingFieldSet());
     }
 
