@@ -61,13 +61,16 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Clicked!!");
 
         String formattedDate = gameTime.getCurrentTimeAndDateStr();
+        String formattedTime = gameTime.getCurrentTimeStr();
 
         // Now we display formattedDate value in TextView
         setContentView(R.layout.activity_main);
 
         TextView newtext = findViewById(R.id.currentTme);
         String text;
-        text = getResources().getString(R.string.CurentDateAndTimeText) + formattedDate;
+        text = getResources().getString(R.string.CurentDateAndTimeText) + formattedDate+"(Time:"+formattedTime+ ")";
+
+
 
         newtext.setText(text);
     }
