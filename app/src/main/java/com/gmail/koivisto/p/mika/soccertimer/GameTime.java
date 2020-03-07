@@ -46,4 +46,26 @@ public class GameTime {
         Time sum = new Time(diffTime.getTime() + diffTime2.getTime());
         return sum;
     }
+    public Calendar timeSum(Calendar diffTime, Calendar diffTime2,Calendar sum) {
+        int hours = diffTime.get(Calendar.HOUR_OF_DAY)+diffTime2.get(Calendar.HOUR_OF_DAY);
+        int min = diffTime.get(Calendar.MINUTE)+diffTime2.get(Calendar.MINUTE);
+        int sec = diffTime.get(Calendar.SECOND)+diffTime2.get(Calendar.SECOND);
+        int millSec = diffTime.get(Calendar.MILLISECOND)+diffTime2.get(Calendar.MILLISECOND);
+
+        setCalenderTime(sum,hours,min,sec,millSec);
+
+        return sum;
+    }
+
+    public void getTimeDiff(Calendar cal1, Calendar cal12, Calendar diffTime2_1) {
+        long milis1 = cal1.getTimeInMillis();
+        long milis2 = cal12.getTimeInMillis();
+        int diff = (int) (milis2 - milis1);
+        int diffSeconds = diff / 1000;
+        int diffMinutes = diff / (60 * 1000);
+        int diffHours = diff / (60*60 * 1000);
+        String tmp = diffMinutes + " dk. " + (diffSeconds - diffMinutes * 60)
+                + " sn " + (diff - (diffSeconds * 1000)) + " ms.";
+        setCalenderTime(diffTime2_1,diffHours,diffMinutes,diffSeconds,0);
+    }
 }
