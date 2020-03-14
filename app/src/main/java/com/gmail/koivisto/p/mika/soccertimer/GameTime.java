@@ -47,13 +47,31 @@ public class GameTime {
         return sum;
     }
     public Calendar timeSum(Calendar diffTime, Calendar diffTime2,Calendar sum) {
+
+        int hours = diffTime.get(Calendar.HOUR_OF_DAY);
+        int min = diffTime.get(Calendar.MINUTE);
+        int sec = diffTime.get(Calendar.SECOND);
+        int millSec = diffTime.get(Calendar.MILLISECOND);
+        int hours2 = diffTime2.get(Calendar.HOUR_OF_DAY);
+        int min2 = diffTime2.get(Calendar.MINUTE);
+        int sec2 = diffTime2.get(Calendar.SECOND);
+        int millSec2 = diffTime2.get(Calendar.MILLISECOND);
+        sum.add(Calendar.YEAR, diffTime2.get(Calendar.YEAR));
+        sum.add(Calendar.MONTH, diffTime2.get(Calendar.MONTH) + 1); // Months are zero-based!
+        sum.add(Calendar.DATE, diffTime2.get(Calendar.DATE));
+        sum.add(Calendar.HOUR_OF_DAY, diffTime2.get(Calendar.HOUR_OF_DAY));
+        sum.add(Calendar.MINUTE, diffTime2.get(Calendar.MINUTE));
+        sum.add(Calendar.SECOND, diffTime2.get(Calendar.SECOND));
+        sum.add(Calendar.MILLISECOND, diffTime2.get(Calendar.MILLISECOND));
+
+        /*
         int hours = diffTime.get(Calendar.HOUR_OF_DAY)+diffTime2.get(Calendar.HOUR_OF_DAY);
         int min = diffTime.get(Calendar.MINUTE)+diffTime2.get(Calendar.MINUTE);
         int sec = diffTime.get(Calendar.SECOND)+diffTime2.get(Calendar.SECOND);
         int millSec = diffTime.get(Calendar.MILLISECOND)+diffTime2.get(Calendar.MILLISECOND);
 
         setCalenderTime(sum,hours,min,sec,millSec);
-
+*/
         return sum;
     }
 
@@ -61,11 +79,15 @@ public class GameTime {
         long milis1 = cal1.getTimeInMillis();
         long milis2 = cal12.getTimeInMillis();
         int diff = (int) (milis2 - milis1);
-        int diffSeconds = diff / 1000;
-        int diffMinutes = diff / (60 * 1000);
         int diffHours = diff / (60*60 * 1000);
+        int diffHoursInMs = diffHours*60*60 * 1000;
+        int diffMinutes = ((diff-(diffHoursInMs)) / (60 * 1000));
+        int diffMinutesInMs = diffMinutes * 60* 1000;
+        int diffSeconds = ((diff-diffHoursInMs-diffMinutesInMs) / 1000);
+        int diffSecondsInMs = diffSeconds * 1000;
+        int millSeconds = diff-diffHoursInMs-diffMinutesInMs-diffSecondsInMs;
         String tmp = diffMinutes + " dk. " + (diffSeconds - diffMinutes * 60)
                 + " sn " + (diff - (diffSeconds * 1000)) + " ms.";
-        setCalenderTime(diffTime2_1,diffHours,diffMinutes,diffSeconds,0);
+        setCalenderTime(diffTime2_1,diffHours,diffMinutes,diffSeconds,millSeconds);
     }
 }
