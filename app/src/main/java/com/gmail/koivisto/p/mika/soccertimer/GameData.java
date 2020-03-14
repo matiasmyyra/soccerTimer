@@ -235,4 +235,12 @@ public class GameData {
 
         return ret;
     }
+
+    public Calendar startGame() {
+        Calendar ret = Calendar.getInstance();
+        return  ret;
+    }
+
+    public void upDateGameTimeToPlayer(Calendar firstUpdate) {
+    }
 }

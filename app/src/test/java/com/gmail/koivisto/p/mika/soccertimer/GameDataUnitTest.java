@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
+
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
@@ -36,7 +37,8 @@ public class GameDataUnitTest {
     public void testAddOnePlayer() {
         GameData sut = new GameData();
         setGameModeAndTacticTestData8vs8(sut);
-        Player p = getPlayerTestData("Tintti Tiipetissä");
+        CommonTestMethod com = new CommonTestMethod();
+        Player p = com.getPlayerTestData("Tintti Tiipetissä");
         sut.setPlayer(p);
         assertEquals(p,sut.getPlayer(p.name));
         assertNull(sut.getPlayer("Taavi joka ei ole joukkueessa"));
@@ -45,7 +47,8 @@ public class GameDataUnitTest {
     public void markThePlayerAsInjured() {
         GameData sut = new GameData();
         setGameModeAndTacticTestData8vs8(sut);
-        Player p = getPlayerTestData("Tintti Tiipetissä");
+        CommonTestMethod com = new CommonTestMethod();
+        Player p = com.getPlayerTestData("Tintti Tiipetissä");
         sut.setPlayer(p);
         assertEquals(p,sut.getPlayer(p.name));
         assertEquals(Status.NO_ERROR,sut.setPlayerInjured(p.name));
@@ -60,10 +63,11 @@ public class GameDataUnitTest {
     public void testAddTwoPlayerAndRemoveOnePlayer() {
         GameData sut = new GameData();
         setGameModeAndTacticTestData8vs8(sut);
-        Player p = getPlayerTestData("Teppo Tattimaa");
+        CommonTestMethod com = new CommonTestMethod();
+        Player p = com.getPlayerTestData("Teppo Tattimaa");
         sut.setPlayer(p);
         assertEquals(1,sut.getNumOfPlayers());
-        Player p2 = getPlayerTestData("Tiitinen Seppo");
+        Player p2 = com.getPlayerTestData("Tiitinen Seppo");
         sut.setPlayer(p2);
         assertEquals(2,sut.getNumOfPlayers());
         assertEquals(p,sut.getPlayer(p.name));
@@ -88,31 +92,31 @@ public class GameDataUnitTest {
         //             0          0
         //      ......___......
         //column  0    1    2
-
+        CommonTestMethod com = new CommonTestMethod();
         Player p1 = new Player();
-        getPlayerTestData(player1Name,p1);
+        com.getPlayerTestData(player1Name,p1);
 
         p1.location.clear();
         int p1_row = 2;
         int p1_column = 2;
-        addLocation(p1,p1_row,p1_column);
+        com.addLocation(p1,p1_row,p1_column);
         assertEquals(Status.NO_ERROR, sut.setPlayer(p1));
 
         Player p2 = new Player();
-        getPlayerTestData(player2Name,p2);
+        com.getPlayerTestData(player2Name,p2);
 
         p2.location.clear();
         int p2_row = 1;
         int p2_column = 1;
-        addLocation(p2,p2_row,p2_column);
+        com.addLocation(p2,p2_row,p2_column);
         assertEquals(Status.NO_ERROR, sut.setPlayer(p2));
 
         assertEquals(2,sut.getNumOfPlayers());
 
         assertEquals(Status.NO_ERROR,sut.swapTwoPlayerLocation(player1Name,player2Name));
 
-        Player newP1 = getPlayerTestData(player1Name);
-        Player newP2 = getPlayerTestData(player2Name);
+        Player newP1 = com.getPlayerTestData(player1Name);
+        Player newP2 = com.getPlayerTestData(player2Name);
 
         assertFalse(newP1.location.contains(p2.location));
         assertFalse(newP2.location.contains(p1.location));
@@ -128,11 +132,12 @@ public class GameDataUnitTest {
     @Test
     public void testAddDublicateName() {
         GameData sut = new GameData();
+        CommonTestMethod com = new CommonTestMethod();
         setGameModeAndTacticTestData8vs8(sut);
-        Player p = getPlayerTestData("Teppo Tattimaa");
+        Player p = com.getPlayerTestData("Teppo Tattimaa");
         assertEquals(Status.NO_ERROR, sut.setPlayer(p));
         assertEquals(1,sut.getNumOfPlayers());
-        Player p2 = getPlayerTestData("Teppo Tattimaa");
+        Player p2 = com.getPlayerTestData("Teppo Tattimaa");
         assertEquals(Status.SAME_NAME_IS_ALREADY_ADDED,sut.setPlayer(p2));
         assertEquals(1,sut.getNumOfPlayers());
 
@@ -143,9 +148,10 @@ public class GameDataUnitTest {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         Player p = new Player();
-        getPlayerTestData("Teppo Tattimaa",p);
+        CommonTestMethod com = new CommonTestMethod();
+        com.getPlayerTestData("Teppo Tattimaa",p);
         p.location.clear();
-        addLocation(p,tactic.length,0);
+        com.addLocation(p,tactic.length,0);
         assertEquals(Status.PLAYER_ROW_OR_COLUMN_NOT_VALID,sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
@@ -156,9 +162,10 @@ public class GameDataUnitTest {
         GameData sut = new GameData();
         setGameModeAndTacticTestData8vs8(sut);
         Player p = new Player();
-        getPlayerTestData("Teppo Tattimaa",p);
+        CommonTestMethod com = new CommonTestMethod();
+        com.getPlayerTestData("Teppo Tattimaa",p);
         p.location.clear();
-        addLocation(p,0,100);
+        com.addLocation(p,0,100);
         assertEquals(Status.PLAYER_ROW_OR_COLUMN_NOT_VALID,sut.setPlayer(p));
         assertEquals(0,sut.getNumOfPlayers());
 
@@ -186,9 +193,10 @@ public class GameDataUnitTest {
         Player duplicatedPlayer = new Player();
         int row = 0;
         int column = 0;
-        getPlayerTestData("PlayerName_"+column+"_"+row, duplicatedPlayer);
+        CommonTestMethod com = new CommonTestMethod();
+        com.getPlayerTestData("PlayerName_"+column+"_"+row, duplicatedPlayer);
         duplicatedPlayer.location.clear();
-        addLocation(duplicatedPlayer,row,column);
+        com.addLocation(duplicatedPlayer,row,column);
         duplicatedPlayer.exchangePalyer = false;
         assertEquals(Status.NO_ERROR,sut.setPlayer(duplicatedPlayer));
         assertEquals(Status.DUPLICATE_PLAYER_IN_SAME_LOCATION,sut.isStartingFieldSet());
@@ -198,7 +206,8 @@ public class GameDataUnitTest {
         GameData sut = new GameData();
         int[] tactic = setGameModeAndTacticTestData8vs8(sut);
         addStartinPlayer8vs8(sut, tactic);
-        addOnePlayerPlayer(sut, 0, 0, true);
+        CommonTestMethod com = new CommonTestMethod();
+        com.addOnePlayerPlayer(sut, 0, 0, true);
         assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
     }
 
@@ -218,41 +227,6 @@ public class GameDataUnitTest {
         //column  0    1    2
         setExchangePlayerThreeLocation02_12_22(sut, 2);
         assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
-    }
-
-    @Test
-    public void testStartGame() {
-        GameData sut = new GameData();
-        int[] tactic = setGameModeAndTacticTestData8vs8(sut);
-        addStartinPlayer8vs8(sut, tactic);
-
-        //      ..............  Row
-        //             0          3
-        //        x    x    x     2
-        //        0    0    0     1
-        //
-        //             0          0
-        //      ......___......
-        //column  0    1    2
-        setExchangePlayerThreeLocation02_12_22(sut, 2);
-        assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
-        //Calendar gameStartTime sut.intialZeroTime
-        //sut.startFirstRound(gameStartTime);
-        /*
-        Iterator itr = sut.players.iterator();
-        while (itr.hasNext())
-        {
-            Player x = (Player)itr.next();
-            if (x.Injured == false) {
-                assertEquals(gameStartTime,x.gameTime);
-            }
-            else {
-                assertEquals(0,x.gameTime);
-
-            }
-        }
-         */
-
     }
 
     private void setExchangePlayerThreeLocation02_12_22(GameData sut, int row2Column) {
@@ -325,28 +299,20 @@ public class GameDataUnitTest {
         countPlayer++;
         Player p = new Player();
         String name = "PlayerName_" + countPlayer;
-        getPlayerTestData(name, p);
+        CommonTestMethod com = new CommonTestMethod();
+        com.getPlayerTestData(name, p);
         p.location =location;
         p.exchangePalyer = exchangePalyer;
         assertEquals(Status.NO_ERROR,sut.setPlayer(p));
         return name;
     }
 
-    private void addOnePlayerPlayer(GameData sut, int row, int column, boolean exchangePlayer) {
-        countPlayer++;
-        Player p = new Player();
-        getPlayerTestData("PlayerName_" + column + "_" + row + "_" + countPlayer, p);
-        p.location.clear();
-        addLocation(p,row,column);
-        p.exchangePalyer = exchangePlayer;
-        assertEquals(Status.NO_ERROR,sut.setPlayer(p));
-    }
-
     private void addStartinPlayer8vs8(GameData sut, int[] tactic) {
         int numberOfPalyer = 0;
         for(int row = 0; row < tactic.length; row++) {
             for(int column = 0; column < tactic[row]; column++) {
-                addOnePlayerPlayer(sut, row, column, false);
+                CommonTestMethod com = new CommonTestMethod();
+                com.addOnePlayerPlayer(sut, row, column, false);
                 numberOfPalyer++;
             }
         }
@@ -369,31 +335,6 @@ public class GameDataUnitTest {
         sut.gameTactics.setNumOfPlayerInTheLayers(tactic);
         return tactic;
     }
-
-    private Player getPlayerTestData(String name) {
-        Player p = new Player();
-        p.name = name;
-        p.exchangePalyer =false;
-        addLocation(p,0,0);
-
-        return p;
-    }
-
-    private void addLocation(Player p, int row, int column) {
-        LocationInTheFiled l = new LocationInTheFiled();
-        l.playerLocationRow = row;
-        l.playerLocationColumn = column;
-        p.location.add(l);
-    }
-
-    private void getPlayerTestData(String name,Player p) {
-        p.name = name;
-        p.exchangePalyer =false;
-        addLocation(p,0,0);
-
-    }
-
-
 }
 
 
