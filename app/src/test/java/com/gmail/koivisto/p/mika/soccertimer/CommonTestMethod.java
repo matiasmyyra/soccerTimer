@@ -1,5 +1,7 @@
 package com.gmail.koivisto.p.mika.soccertimer;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 public class CommonTestMethod {
@@ -58,6 +60,34 @@ public class CommonTestMethod {
         addLocation(p,0,0);
 
         return p;
+    }
+    public String setExchangePlayerThreeLocation02_12_22(GameData sut) {
+        ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
+        LocationInTheFiled l1 = new LocationInTheFiled();
+        l1.playerLocationColumn = 0;
+        l1.playerLocationRow = 2;
+        location.add(l1);
+        LocationInTheFiled l2 = new LocationInTheFiled();
+        l2.playerLocationColumn = 1;
+        l2.playerLocationRow = 2;
+        location.add(l2);
+        LocationInTheFiled l3 = new LocationInTheFiled();
+        l3.playerLocationColumn = 2;
+        l3.playerLocationRow = 2;
+        location.add(l3);
+
+        return addOnePlayerMultibleLocation(sut, location, true);
+    }
+    private String addOnePlayerMultibleLocation(GameData sut, ArrayList<LocationInTheFiled> location, boolean exchangePalyer) {
+        countPlayer++;
+        Player p = new Player();
+        String name = "PlayerName_" + countPlayer;
+        CommonTestMethod com = new CommonTestMethod();
+        com.getPlayerTestData(name, p);
+        p.location =location;
+        p.exchangePalyer = exchangePalyer;
+        assertEquals(Status.NO_ERROR,sut.setPlayer(p));
+        return name;
     }
 
 
