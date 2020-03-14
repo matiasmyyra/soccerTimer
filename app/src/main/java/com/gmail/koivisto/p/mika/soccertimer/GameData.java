@@ -14,11 +14,13 @@ enum GameMode {
 public class GameData {
     GameMode gameMode;
     GameTactics gameTactics = new GameTactics();
+    Calendar gameFirstRoundStartTime;
     Date gameStartTime;
     Date gameHalfTimeStart;
     Date gameNextRoundTimeStart;
     Date gameStartEnd;
     int numOfPlayers;
+    GameTime timeService = new GameTime();
     ArrayList<Player> players = new ArrayList<Player>();
 
     public void setGameMode(GameMode gameMode)
@@ -237,10 +239,20 @@ public class GameData {
     }
 
     public Calendar startGame() {
-        Calendar ret = Calendar.getInstance();
-        return  ret;
+        gameFirstRoundStartTime =Calendar.getInstance();
+        for(Player p : players) {
+            p.gameTime = (Calendar) gameFirstRoundStartTime.clone();
+            timeService.setCalenderTime(p.gameTime,0,0,0,0);
+        }
+
+        return  gameFirstRoundStartTime;
     }
 
-    public void upDateGameTimeToPlayer(Calendar firstUpdate) {
+    public void upDateGameTimeToPlayer(Calendar update) {
+        for(Player p : players) {
+            if(p.exchangePalyer == false && (p.Injured == null || p.Injured == false ) ) {
+                timeService.timeSum(p.gameTime, update, p.gameTime);
+            }
+        }
     }
 }
