@@ -5,20 +5,20 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class GameTime {
-    public Date getCurrentTimeAndDate() {
+    public Calendar getCurrentTimeAndDate() {
         Calendar c = Calendar.getInstance();
-        return c.getTime();
+        return c;
     }
     public String getCurrentTimeAndDateStr() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date d;
+        Calendar d;
         d = getCurrentTimeAndDate();
         String formattedDate = df.format(getCurrentTimeAndDate());
         return formattedDate;
     }
     public String getCurrentTimeStr() {
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-        Date d;
+        Calendar d;
         d = getCurrentTimeAndDate();
         String formattedDate = df.format(getCurrentTimeAndDate());
         return formattedDate;

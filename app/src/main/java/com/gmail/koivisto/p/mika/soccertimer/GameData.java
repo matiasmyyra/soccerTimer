@@ -15,10 +15,10 @@ public class GameData {
     GameMode gameMode;
     GameTactics gameTactics = new GameTactics();
     Calendar gameFirstRoundStartTime;
-    Date gameStartTime;
-    Date gameHalfTimeStart;
-    Date gameNextRoundTimeStart;
-    Date gameStartEnd;
+    Calendar gameCurrentTime;
+    Calendar gameHalfTimeStart;
+    Calendar gameNextRoundTimeStart;
+    Calendar gameStartEnd;
     int numOfPlayers;
     GameTime timeService = new GameTime();
     ArrayList<Player> players = new ArrayList<Player>();
@@ -28,8 +28,8 @@ public class GameData {
         this.gameMode = gameMode;
     }
 
-    public void setGameStartTime(Date gameStartTime) {
-        this.gameStartTime = gameStartTime;
+    public void setGameCurrentTime(Calendar gameCurrentTime) {
+        this.gameCurrentTime = gameCurrentTime;
     }
     public static Date intialZeroTime(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -240,6 +240,7 @@ public class GameData {
 
     public Calendar startGame() {
         gameFirstRoundStartTime =Calendar.getInstance();
+        gameCurrentTime = (Calendar) gameFirstRoundStartTime.clone();
         for(Player p : players) {
             p.gameTime = (Calendar) gameFirstRoundStartTime.clone();
             timeService.setCalenderTime(p.gameTime,0,0,0,0);

@@ -27,6 +27,7 @@ public class GameSystemTest {
         //column  0    1    2
         assertEquals(Status.NO_ERROR,sut.isStartingFieldSet());
         Calendar startTime = sut.startGame();
+        assertEquals(sut.gameCurrentTime, sut.gameFirstRoundStartTime);
         GameTime time = new GameTime();
         Calendar zero = Calendar.getInstance();
         time.setCalenderTime(zero,0,0,0,0);

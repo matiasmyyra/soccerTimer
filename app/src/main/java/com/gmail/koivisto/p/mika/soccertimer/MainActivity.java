@@ -15,11 +15,6 @@ import android.view.MenuItem;
 
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -77,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         String TAG = "initData";
         Log.i(TAG, "init start");
-        gameData.setGameStartTime(gameTime.getCurrentTimeAndDate());
+        gameData.setGameCurrentTime(gameTime.getCurrentTimeAndDate());
         gameData.setGameMode(GameMode.GAME_MODE_8VS8);
         int goalkeeper = 1;
         int[] tactic ={1,3,3,goalkeeper};
