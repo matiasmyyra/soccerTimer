@@ -284,4 +284,7 @@ public class GameData {
         ArrayList<Player> ret = null;
         return ret;
     }
+
+    public void doPlayersChange() {
+    }
 }

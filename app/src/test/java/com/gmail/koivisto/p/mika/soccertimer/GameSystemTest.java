@@ -97,64 +97,41 @@ public class GameSystemTest {
         upDateAndCheckCurrentTimeWithXMinutes(sut,3, time,true);
 
 
-        ArrayList<String> playersWhoGoToField = sut.getNextPlayersToField();
-        assertEquals(1,playersWhoGoToField.size());
-        ArrayList<String> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
-        assertEquals(1,playersWhoComesFromFieldToRest.size());
-        for(String name : playersWhoGoToField) {
-            assertEquals(name,fistExchangePlayerName);
-        }
-        for(String name : playersWhoComesFromFieldToRest) {
-            assertEquals(name,a.name);
-        }
+        CheckThatPlayerChangeDoCorrectly(sut, fistExchangePlayerName, a);
+
 
         upDateAndCheckCurrentTimeWithXMinutes(sut,4, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,5, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,6, time,true);
 
-        playersWhoGoToField = sut.getNextPlayersToField();
-        assertEquals(1,playersWhoGoToField.size());
-        playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
-        assertEquals(1,playersWhoComesFromFieldToRest.size());
-        for(String name : playersWhoGoToField) {
-            assertEquals(name,a.name);
-        }
-        for(String name : playersWhoComesFromFieldToRest) {
-            assertEquals(name,b.name);
-        }
-
+        CheckThatPlayerChangeDoCorrectly(sut, a.name, b);
 
         upDateAndCheckCurrentTimeWithXMinutes(sut,7, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,8, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,9, time,true);
 
-        playersWhoGoToField = sut.getNextPlayersToField();
-        assertEquals(1,playersWhoGoToField.size());
-        playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
-        assertEquals(1,playersWhoComesFromFieldToRest.size());
-        for(String name : playersWhoGoToField) {
-            assertEquals(name,b.name);
-        }
-        for(String name : playersWhoComesFromFieldToRest) {
-            assertEquals(name,c.name);
-        }
+        CheckThatPlayerChangeDoCorrectly(sut, b.name, c);
 
         upDateAndCheckCurrentTimeWithXMinutes(sut,10, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,11, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,12, time,true);
 
-        playersWhoGoToField = sut.getNextPlayersToField();
+        CheckThatPlayerChangeDoCorrectly(sut, c.name, fistExchangePlayerName);//todo:tämä pitää korjata muutas String -->Player
+
+    }
+
+    private void CheckThatPlayerChangeDoCorrectly(GameData sut, String exchangePlayerName, Player a) {
+        ArrayList<String> playersWhoGoToField = sut.getNextPlayersToField();
         assertEquals(1,playersWhoGoToField.size());
-        playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
+        ArrayList<String> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
         assertEquals(1,playersWhoComesFromFieldToRest.size());
         for(String name : playersWhoGoToField) {
-            assertEquals(name,b.name);
+            assertEquals(name,exchangePlayerName);
         }
         for(String name : playersWhoComesFromFieldToRest) {
-            assertEquals(name,fistExchangePlayerName);
+            assertEquals(name,a.name);
         }
-
-
+        sut.doPlayersChange();
     }
 
     private void upDateAndCheckCurrentTimeWithXMinutes(GameData sut,int minutes, GameTime time, boolean isTimeToChangePlayer) {
