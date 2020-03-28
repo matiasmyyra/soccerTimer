@@ -255,4 +255,21 @@ public class GameData {
             }
         }
     }
+
+    public void setTimeToChangePlayerInMinutes(int timeToChangePlayer) {
+    }
+
+    public boolean isTimeToChangePlayer() {
+        return false;
+    }
+
+    public ArrayList<String> getNextPlayersToField() {
+        ArrayList<String> ret = null;
+        return ret;
+    }
+
+    public ArrayList<String> getNextWhoComesFromFieldToRest() {
+        ArrayList<String> ret = null;
+        return ret;
+    }
 }

@@ -64,7 +64,7 @@ public class GameSystemTest {
         CommonTestMethod com = new CommonTestMethod();
         GameData sut = new GameData();
         int timeToChangePlayer = 3;
-        sut.setTimeToChangePlayetInMinutes(timeToChangePlayer);
+        sut.setTimeToChangePlayerInMinutes(timeToChangePlayer);
         int[] tactic = com.setGameModeAndTacticTestData8vs8(sut);
         com.addStartinPlayer8vs8(sut, tactic);
 
@@ -90,12 +90,12 @@ public class GameSystemTest {
         Calendar update_1Minute = Calendar.getInstance();
         time.setCalenderTime(update_1Minute,0,1,0,0);
         sut.upDateGameTimeToPlayer(update_1Minute);
-        assertFalse(sut.isTimeToChangePlayewr());
+        assertFalse(sut.isTimeToChangePlayer());
 
         sut.upDateGameTimeToPlayer(update_1Minute);
         assertFalse(sut.isTimeToChangePlayer());
         sut.upDateGameTimeToPlayer(update_1Minute);
-        assertTrue(sut.isTimeToChangePlayewr());
+        assertTrue(sut.isTimeToChangePlayer());
 
         ArrayList<String> playersWhoGoToField = sut.getNextPlayersToField();
         ArrayList<String> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
