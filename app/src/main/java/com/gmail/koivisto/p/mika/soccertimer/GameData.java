@@ -274,4 +274,14 @@ public class GameData {
         ArrayList<String> ret = null;
         return ret;
     }
+
+    public Player getPlayerDataFromLocation(int i, int i1) {
+        Player ret = new Player();
+        return ret;
+    }
+
+    public ArrayList<Player> getExchangePlayerList() {
+        ArrayList<Player> ret = null;
+        return ret;
+    }
 }
