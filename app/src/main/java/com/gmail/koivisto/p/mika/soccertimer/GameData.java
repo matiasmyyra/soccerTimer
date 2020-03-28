@@ -250,6 +250,7 @@ public class GameData {
     }
 
     public void upDateGameTimeToPlayer(Calendar update) {
+        timeService.timeSum(p.gameCurrentTime, update, p.gameCurrentTime);
         for(Player p : players) {
             if(p.exchangePalyer == false && (p.Injured == null || p.Injured == false ) ) {
                 timeService.timeSum(p.gameTime, update, p.gameTime);
