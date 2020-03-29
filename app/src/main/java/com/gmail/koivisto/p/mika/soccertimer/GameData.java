@@ -42,6 +42,7 @@ public class GameData {
     }
 
     public Status setPlayer(Player p) {
+
         Status IsValid = Status.NO_ERROR;
         for (LocationInTheFiled l : p.location) {
             if(!gameTactics.isValidRow(l.playerLocationRow) ||
@@ -49,6 +50,7 @@ public class GameData {
                 IsValid = Status.PLAYER_ROW_OR_COLUMN_NOT_VALID;
             }
         }
+
         for (Player alreadyAddedPlayer : players) {
             if(alreadyAddedPlayer.name.compareTo(p.name) == 0) {
                 IsValid = Status.SAME_NAME_IS_ALREADY_ADDED;
@@ -57,12 +59,16 @@ public class GameData {
 
         if(IsValid == Status.NO_ERROR) {
             Date newDate = new Date();
-            p.gameTime = Calendar.getInstance();
-            p.gameTime.set(Calendar.HOUR_OF_DAY, 0);
-            p.gameTime.set(Calendar.MINUTE, 0);
-            p.gameTime.set(Calendar.SECOND, 0);
-            p.gameTime.set(Calendar.MILLISECOND, 0);
-            players.add(p);
+            Player x = new Player(p);
+            x.currentColumn = p.location.get(0).playerLocationColumn;
+            x.currentRow = p.location.get(0).playerLocationRow;
+
+            x.gameTime = Calendar.getInstance();
+            x.gameTime.set(Calendar.HOUR_OF_DAY, 0);
+            x.gameTime.set(Calendar.MINUTE, 0);
+            x.gameTime.set(Calendar.SECOND, 0);
+            x.gameTime.set(Calendar.MILLISECOND, 0);
+            players.add(x);
             return IsValid;
         }
         else{
@@ -275,13 +281,24 @@ public class GameData {
         return ret;
     }
 
-    public Player getPlayerDataFromLocation(int i, int i1) {
-        Player ret = new Player();
-        return ret;
+    public Player getPlayerDataFromLocation(int row, int column) {
+        for(Player p : players) {
+            if(p.exchangePalyer =false && p.currentRow == row && p.currentColumn == column) {
+                return p;
+            }
+        }
+        return null;
+
     }
 
     public ArrayList<Player> getExchangePlayerList() {
-        ArrayList<Player> ret = null;
+        ArrayList<Player> ret = new ArrayList<Player>();
+        for(Player p : players) {
+            if(p.exchangePalyer == true) {
+                ret.add(p);
+            }
+        }
+
         return ret;
     }
 
