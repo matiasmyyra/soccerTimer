@@ -92,35 +92,33 @@ public class GameSystemTest {
         GameTime time = new GameTime();
         ckeckThatAllPlayerTimeIsSetToZero(sut, time);
 
+        //Column 0
         upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,2, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,3, time,true);
+        CheckThatPlayerChangeDoCorrectly(sut, fistExchangePlayerName, a.name);
 
-
-        CheckThatPlayerChangeDoCorrectly(sut, fistExchangePlayerName, a);
-
-
+        //Column 1
         upDateAndCheckCurrentTimeWithXMinutes(sut,4, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,5, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,6, time,true);
+        CheckThatPlayerChangeDoCorrectly(sut, a.name, b.name);
 
-        CheckThatPlayerChangeDoCorrectly(sut, a.name, b);
-
+        //Column 2
         upDateAndCheckCurrentTimeWithXMinutes(sut,7, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,8, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,9, time,true);
+        CheckThatPlayerChangeDoCorrectly(sut, b.name, c.name);
 
-        CheckThatPlayerChangeDoCorrectly(sut, b.name, c);
-
+        //Column 3
         upDateAndCheckCurrentTimeWithXMinutes(sut,10, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,11, time,false);
         upDateAndCheckCurrentTimeWithXMinutes(sut,12, time,true);
-
-        CheckThatPlayerChangeDoCorrectly(sut, c.name, fistExchangePlayerName);//todo:tämä pitää korjata muutas String -->Player
+        CheckThatPlayerChangeDoCorrectly(sut, c.name, fistExchangePlayerName);
 
     }
 
-    private void CheckThatPlayerChangeDoCorrectly(GameData sut, String exchangePlayerName, Player a) {
+    private void CheckThatPlayerChangeDoCorrectly(GameData sut, String exchangePlayerName, String playerNameWhoComeToGame) {
         ArrayList<String> playersWhoGoToField = sut.getNextPlayersToField();
         assertEquals(1,playersWhoGoToField.size());
         ArrayList<String> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
@@ -129,7 +127,7 @@ public class GameSystemTest {
             assertEquals(name,exchangePlayerName);
         }
         for(String name : playersWhoComesFromFieldToRest) {
-            assertEquals(name,a.name);
+            assertEquals(name,playerNameWhoComeToGame);
         }
         sut.doPlayersChange();
     }
