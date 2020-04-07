@@ -40,7 +40,8 @@ public class GameDataUnitTest {
         CommonTestMethod com = new CommonTestMethod();
         Player p = com.getPlayerTestData("Tintti Tiipetissä");
         sut.setPlayer(p);
-        assertEquals(p,sut.getPlayer(p.name));
+        assertTrue(com.isPlayersSameExceptedGameTime(p,sut.getPlayer(p.name)));
+        //Todo: Lisää ajan tarkistaminen että on nolla
         assertNull(sut.getPlayer("Taavi joka ei ole joukkueessa"));
     }
     @Test
@@ -50,7 +51,7 @@ public class GameDataUnitTest {
         CommonTestMethod com = new CommonTestMethod();
         Player p = com.getPlayerTestData("Tintti Tiipetissä");
         sut.setPlayer(p);
-        assertEquals(p,sut.getPlayer(p.name));
+        assertTrue(com.isPlayersSameExceptedGameTime(p,sut.getPlayer(p.name)));
         assertEquals(Status.NO_ERROR,sut.setPlayerInjured(p.name));
         Player pp1 = sut.getPlayer(p.name);
         assertTrue(pp1.Injured);
@@ -70,8 +71,9 @@ public class GameDataUnitTest {
         Player p2 = com.getPlayerTestData("Tiitinen Seppo");
         sut.setPlayer(p2);
         assertEquals(2,sut.getNumOfPlayers());
-        assertEquals(p,sut.getPlayer(p.name));
-        assertEquals(p2,sut.getPlayer(p2.name));
+
+        assertTrue(com.isPlayersSameExceptedGameTime(p,sut.getPlayer(p.name)));
+        assertTrue(com.isPlayersSameExceptedGameTime(p2,sut.getPlayer(p2.name)));
         assertNull(sut.getPlayer("Taavi joka ei ole joukkueessa"));
         assertEquals(Status.NO_ERROR,sut.removePlayer("Teppo Tattimaa"));
         assertEquals(1,sut.getNumOfPlayers());

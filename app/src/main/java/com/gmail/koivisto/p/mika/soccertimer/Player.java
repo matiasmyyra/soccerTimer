@@ -16,6 +16,13 @@ public class Player {
         this.location = (ArrayList<LocationInTheFiled>)p.location.clone();
     }
     public Player() {
+        this.currentRow = 0;
+        this.currentColumn = 0;
+        this.exchangePalyer = false;
+        this.Injured = false;
+        this.name = "no name";
+        this.gameTime = Calendar.getInstance();
+        this.location = new ArrayList<LocationInTheFiled>();
 
     }
     public int currentRow;

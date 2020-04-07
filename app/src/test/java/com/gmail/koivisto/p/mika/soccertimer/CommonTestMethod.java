@@ -54,12 +54,24 @@ public class CommonTestMethod {
 
     }
     public Player getPlayerTestData(String name) {
-        Player p = new Player();
+        Player p = new Player();//todo: uusi totettus ei toimi Hox Player costrutoria muutettu korjaa
         p.name = name;
         p.exchangePalyer =false;
         addLocation(p,0,0);
 
         return p;
+    }
+    public boolean isPlayersSameExceptedGameTime(Player a , Player b) {
+        boolean ret = true;
+        if(a.name != b.name ||
+        a.Injured != b.Injured ||
+        a.exchangePalyer != b.exchangePalyer ||
+        a.currentRow != b.currentRow ||
+        a.location.size() != b.location.size()) {
+            ret = false;
+        }
+        return ret;
+
     }
     public String setExchangePlayerThreeLocation02_12_22(GameData sut) {
         ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
