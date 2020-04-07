@@ -283,7 +283,7 @@ public class GameData {
 
     public Player getPlayerDataFromLocation(int row, int column) {
         for(Player p : players) {
-            if(p.exchangePalyer =false && p.currentRow == row && p.currentColumn == column) {
+            if(p.exchangePalyer == false && p.currentRow == row && p.currentColumn == column) {
                 return p;
             }
         }
