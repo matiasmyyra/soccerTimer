@@ -94,20 +94,20 @@ public class GameSystemTest {
 
         //Column 0
         upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,2, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,3, time,true);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,true);
         CheckThatPlayerChangeDoCorrectly(sut, fistExchangePlayerName, a.name);
 
         //Column 1
-        upDateAndCheckCurrentTimeWithXMinutes(sut,4, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,5, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,6, time,true);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,true);
         CheckThatPlayerChangeDoCorrectly(sut, a.name, b.name);
 
         //Column 2
-        upDateAndCheckCurrentTimeWithXMinutes(sut,7, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,8, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,9, time,true);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,true);
         CheckThatPlayerChangeDoCorrectly(sut, b.name, c.name);
 
         //Column 3
@@ -134,9 +134,10 @@ public class GameSystemTest {
 
     private void upDateAndCheckCurrentTimeWithXMinutes(GameData sut,int minutes, GameTime time, boolean isTimeToChangePlayer) {
         Calendar update_1Minute = Calendar.getInstance();
+        int currentTimeMin = sut.gameCurrentTime.get(Calendar.MINUTE);
         time.setCalenderTime(update_1Minute,0,minutes,0,0);
         sut.upDateGameTimeToPlayer(update_1Minute);
-        assertEquals(sut.gameCurrentTime, update_1Minute);
+        assertEquals(sut.gameCurrentTime.get(Calendar.MINUTE), currentTimeMin+1);
         assertEquals(isTimeToChangePlayer ,sut.isTimeToChangePlayer());
 
     }

@@ -256,10 +256,27 @@ public class GameData {
     }
 
     public void upDateGameTimeToPlayer(Calendar update) {
-        //timeService.timeSum(p.gameCurrentTime, update, p.gameCurrentTime);
+        timeService.timeSum(gameCurrentTime, update, gameCurrentTime);
         for(Player p : players) {
             if(p.exchangePalyer == false && (p.Injured == null || p.Injured == false ) ) {
+                int hours = p.gameTime.get(Calendar.HOUR_OF_DAY);
+                int min = p.gameTime.get(Calendar.MINUTE);
+                int sec = p.gameTime.get(Calendar.SECOND);
+                int millSec = p.gameTime.get(Calendar.MILLISECOND);
+                int hours2 = p.gameTime.get(Calendar.HOUR_OF_DAY);
+                int min2 = p.gameTime.get(Calendar.MINUTE);
+                int sec2 = p.gameTime.get(Calendar.SECOND);
+                int millSec2 = p.gameTime.get(Calendar.MILLISECOND);
+
                 timeService.timeSum(p.gameTime, update, p.gameTime);
+                hours = p.gameTime.get(Calendar.HOUR_OF_DAY);
+                min = p.gameTime.get(Calendar.MINUTE);
+                sec = p.gameTime.get(Calendar.SECOND);
+                millSec = p.gameTime.get(Calendar.MILLISECOND);
+                hours2 = p.gameTime.get(Calendar.HOUR_OF_DAY);
+                min2 = p.gameTime.get(Calendar.MINUTE);
+                sec2 = p.gameTime.get(Calendar.SECOND);
+                millSec2 = p.gameTime.get(Calendar.MILLISECOND);
             }
         }
     }
@@ -268,6 +285,7 @@ public class GameData {
     }
 
     public boolean isTimeToChangePlayer() {
+        //Todo:Add missing implemtation
         return false;
     }
 
