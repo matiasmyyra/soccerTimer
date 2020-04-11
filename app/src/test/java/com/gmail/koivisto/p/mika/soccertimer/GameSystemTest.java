@@ -119,15 +119,15 @@ public class GameSystemTest {
     }
 
     private void CheckThatPlayerChangeDoCorrectly(GameData sut, String exchangePlayerName, String playerNameWhoComeToGame) {
-        ArrayList<String> playersWhoGoToField = sut.getNextPlayersToField();
+        ArrayList<Player> playersWhoGoToField = sut.getNextPlayersToField();
         assertEquals(1,playersWhoGoToField.size());
-        ArrayList<String> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
+        ArrayList<Player> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
         assertEquals(1,playersWhoComesFromFieldToRest.size());
-        for(String name : playersWhoGoToField) {
-            assertEquals(name,exchangePlayerName);
+        for(Player p : playersWhoGoToField) {
+            assertEquals(p.name,exchangePlayerName);
         }
-        for(String name : playersWhoComesFromFieldToRest) {
-            assertEquals(name,playerNameWhoComeToGame);
+        for(Player p : playersWhoComesFromFieldToRest) {
+            assertEquals(p.name,playerNameWhoComeToGame);
         }
         sut.doPlayersChange();
     }

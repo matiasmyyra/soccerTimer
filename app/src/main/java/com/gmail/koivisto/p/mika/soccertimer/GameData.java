@@ -311,13 +311,28 @@ public class GameData {
         return ret;
     }
 
-    public ArrayList<String> getNextPlayersToField() {
-        ArrayList<String> ret = null;
+    public ArrayList<Player> getNextPlayersToField() {
+        ArrayList<Player> ret = new ArrayList<Player>();
+
+        for(Player p : players) {
+            if(p.exchangePalyer == true ) {
+                ret.add(p);
+            }
+        }
+
         return ret;
     }
 
-    public ArrayList<String> getNextWhoComesFromFieldToRest() {
-        ArrayList<String> ret = null;
+    public ArrayList<Player> getNextWhoComesFromFieldToRest() {
+        ArrayList<Player> exPlayers = getNextPlayersToField();
+        ArrayList<Player> ret = new ArrayList<Player>();
+        for(Player p : exPlayers) {
+            if(p.location.size() > 0) {
+                //ToDo: lisää location kaikilta pelaajiöta yhteen listaan--
+
+            }
+        }
+
         return ret;
     }
 
