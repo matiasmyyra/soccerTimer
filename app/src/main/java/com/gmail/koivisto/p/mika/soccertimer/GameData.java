@@ -10,8 +10,12 @@ enum GameMode {
     GAME_MODE_5VS5,
     GAME_MODE_11VS11
 }
+enum PlayerChangeState {
+    IS_TIME_TO_CHANGE_PLAYER
+}
 
 public class GameData {
+    PlayerChangeState playerChangeState;
     GameMode gameMode;
     GameTactics gameTactics = new GameTactics();
     Calendar gameFirstRoundStartTime;
@@ -22,6 +26,7 @@ public class GameData {
     int numOfPlayers;
     GameTime timeService = new GameTime();
     ArrayList<Player> players = new ArrayList<Player>();
+    private int timeToChangePlayerMin;
 
     public void setGameMode(GameMode gameMode)
     {
@@ -247,6 +252,7 @@ public class GameData {
     public Calendar startGame() {
         gameFirstRoundStartTime =Calendar.getInstance();
         gameCurrentTime = (Calendar) gameFirstRoundStartTime.clone();
+        timeService.setCalenderTime(gameCurrentTime,0,0,0,0);
         for(Player p : players) {
             p.gameTime = (Calendar) gameFirstRoundStartTime.clone();
             timeService.setCalenderTime(p.gameTime,0,0,0,0);
@@ -256,37 +262,53 @@ public class GameData {
     }
 
     public void upDateGameTimeToPlayer(Calendar update) {
+        int hours = gameCurrentTime.get(Calendar.HOUR_OF_DAY);
+        int min = gameCurrentTime.get(Calendar.MINUTE);
+        int sec = gameCurrentTime.get(Calendar.SECOND);
+        int millSec = gameCurrentTime.get(Calendar.MILLISECOND);
+        int hours2 = gameCurrentTime.get(Calendar.HOUR_OF_DAY);
+        int min2 = gameCurrentTime.get(Calendar.MINUTE);
+        int sec2 = gameCurrentTime.get(Calendar.SECOND);
+        int millSec2 = gameCurrentTime.get(Calendar.MILLISECOND);
         timeService.timeSum(gameCurrentTime, update, gameCurrentTime);
+        hours = gameCurrentTime.get(Calendar.HOUR_OF_DAY);
+        min = gameCurrentTime.get(Calendar.MINUTE);
+        sec = gameCurrentTime.get(Calendar.SECOND);
+        millSec = gameCurrentTime.get(Calendar.MILLISECOND);
+        hours2 = gameCurrentTime.get(Calendar.HOUR_OF_DAY);
+        min2 = gameCurrentTime.get(Calendar.MINUTE);
+        sec2 = gameCurrentTime.get(Calendar.SECOND);
+        millSec2 = gameCurrentTime.get(Calendar.MILLISECOND);
         for(Player p : players) {
             if(p.exchangePalyer == false && (p.Injured == null || p.Injured == false ) ) {
-                int hours = p.gameTime.get(Calendar.HOUR_OF_DAY);
-                int min = p.gameTime.get(Calendar.MINUTE);
-                int sec = p.gameTime.get(Calendar.SECOND);
-                int millSec = p.gameTime.get(Calendar.MILLISECOND);
-                int hours2 = p.gameTime.get(Calendar.HOUR_OF_DAY);
-                int min2 = p.gameTime.get(Calendar.MINUTE);
-                int sec2 = p.gameTime.get(Calendar.SECOND);
-                int millSec2 = p.gameTime.get(Calendar.MILLISECOND);
+
 
                 timeService.timeSum(p.gameTime, update, p.gameTime);
-                hours = p.gameTime.get(Calendar.HOUR_OF_DAY);
-                min = p.gameTime.get(Calendar.MINUTE);
-                sec = p.gameTime.get(Calendar.SECOND);
-                millSec = p.gameTime.get(Calendar.MILLISECOND);
-                hours2 = p.gameTime.get(Calendar.HOUR_OF_DAY);
-                min2 = p.gameTime.get(Calendar.MINUTE);
-                sec2 = p.gameTime.get(Calendar.SECOND);
-                millSec2 = p.gameTime.get(Calendar.MILLISECOND);
+
             }
         }
     }
 
     public void setTimeToChangePlayerInMinutes(int timeToChangePlayer) {
+        timeToChangePlayerMin = timeToChangePlayer;
     }
 
     public boolean isTimeToChangePlayer() {
-        //Todo:Add missing implemtation
-        return false;
+        boolean ret = false;
+        int sec = gameCurrentTime.get(Calendar.SECOND);
+        int min = gameCurrentTime.get(Calendar.MINUTE);
+        int ho = gameCurrentTime.get(Calendar.HOUR);
+
+        long playTimeSeconds = (gameCurrentTime.get(Calendar.SECOND) +
+                gameCurrentTime.get(Calendar.MINUTE) * 60 +
+                gameCurrentTime.get(Calendar.HOUR) * 3600);
+
+        if(timeToChangePlayerMin*60 <= playTimeSeconds ) {
+            ret = true;
+            playerChangeState = PlayerChangeState.IS_TIME_TO_CHANGE_PLAYER;
+        }
+
+        return ret;
     }
 
     public ArrayList<String> getNextPlayersToField() {
