@@ -20,6 +20,7 @@ public class GameData {
     GameTactics gameTactics = new GameTactics();
     Calendar gameFirstRoundStartTime;
     Calendar gameCurrentTime;
+    Calendar lastPlayerIsChangedTime;
     Calendar gameHalfTimeStart;
     Calendar gameNextRoundTimeStart;
     Calendar gameStartEnd;
@@ -265,7 +266,9 @@ public class GameData {
     public Calendar startGame() {
         gameFirstRoundStartTime =Calendar.getInstance();
         gameCurrentTime = (Calendar) gameFirstRoundStartTime.clone();
+        lastPlayerIsChangedTime = (Calendar) gameFirstRoundStartTime.clone();
         timeService.setCalenderTime(gameCurrentTime,0,0,0,0);
+        timeService.setCalenderTime(lastPlayerIsChangedTime,0,0,0,0);
         for(Player p : players) {
             p.gameTime = (Calendar) gameFirstRoundStartTime.clone();
             timeService.setCalenderTime(p.gameTime,0,0,0,0);
@@ -316,7 +319,11 @@ public class GameData {
                 gameCurrentTime.get(Calendar.MINUTE) * 60 +
                 gameCurrentTime.get(Calendar.HOUR) * 3600);
 
-        if(timeToChangePlayerMin*60 <= playTimeSeconds ) {
+        long lastChangeTimeSeconds = (lastPlayerIsChangedTime.get(Calendar.SECOND) +
+                lastPlayerIsChangedTime.get(Calendar.MINUTE) * 60 +
+                lastPlayerIsChangedTime.get(Calendar.HOUR) * 3600);
+
+        if(timeToChangePlayerMin*60 <= (playTimeSeconds-lastChangeTimeSeconds) ) {
             ret = true;
             playerChangeState = PlayerChangeState.IS_TIME_TO_CHANGE_PLAYER;
         }
@@ -444,5 +451,8 @@ public class GameData {
                 p.currentColumn = column;
             }
         }
+        lastPlayerIsChangedTime = (Calendar) gameCurrentTime.clone();
+
+
     }
 }
