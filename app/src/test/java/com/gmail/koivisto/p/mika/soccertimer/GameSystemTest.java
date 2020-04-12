@@ -122,12 +122,12 @@ public class GameSystemTest {
         ArrayList<Player> playersWhoGoToField = sut.getNextPlayersToField();
         assertEquals(1,playersWhoGoToField.size());
         ArrayList<Player> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
-        assertEquals(1,playersWhoComesFromFieldToRest.size());
+        assertEquals(3,playersWhoComesFromFieldToRest.size());
         for(Player p : playersWhoGoToField) {
             assertEquals(p.name,exchangePlayerName);
         }
         for(Player p : playersWhoComesFromFieldToRest) {
-            assertEquals(p.name,playerNameWhoComeToGame);
+            assertEquals(p.name,playerNameWhoComeToGame);//TODO: nimi väärä kolme mahdollista pelaajaa ei yksi
         }
         sut.doPlayersChange();
     }

@@ -326,11 +326,30 @@ public class GameData {
     public ArrayList<Player> getNextWhoComesFromFieldToRest() {
         ArrayList<Player> exPlayers = getNextPlayersToField();
         ArrayList<Player> ret = new ArrayList<Player>();
+        ArrayList<LocationInTheFiled> tempLoc = new ArrayList<LocationInTheFiled>();
         for(Player p : exPlayers) {
-            if(p.location.size() > 0) {
-                //ToDo: lisää location kaikilta pelaajiöta yhteen listaan--
+            if(p.location.size() > 0 ) {
+                tempLoc.addAll(p.location);
+            }
+        }
+        for(LocationInTheFiled l : tempLoc) {
+            for(Player p : players) {
+                outerloop:
+                if(p.exchangePalyer == false) {
+                    for (LocationInTheFiled pl : p.location) {
+                        if (pl.playerLocationRow == l.playerLocationRow &&
+                                pl.playerLocationColumn == l.playerLocationColumn) {
+                            ret.add(p);
+                            break outerloop;
+                        }
+
+
+                    }
+                }
 
             }
+
+
         }
 
         return ret;
