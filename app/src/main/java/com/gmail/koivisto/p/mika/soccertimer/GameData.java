@@ -163,6 +163,19 @@ public class GameData {
         }
         return Status.NO_ERROR;
     }
+/*
+    public Status removePlayer(String name) {
+        Iterator itr = players.iterator();
+        while (itr.hasNext())
+        {
+            Player x = (Player)itr.next();
+            if (x.name.compareTo(name) == 0)
+                itr.remove();
+        }
+        return Status.NO_ERROR;
+    }
+
+ */
     private boolean findPlayer(String player1Name,Iterator itr) {
         boolean find = false;
         Iterator itrTemp= players.iterator();
@@ -326,16 +339,17 @@ public class GameData {
     public ArrayList<Player> getNextWhoComesFromFieldToRest() {
         ArrayList<Player> exPlayers = getNextPlayersToField();
         ArrayList<Player> ret = new ArrayList<Player>();
+        ArrayList<Player> ret2 = new ArrayList<Player>();
         ArrayList<LocationInTheFiled> tempLoc = new ArrayList<LocationInTheFiled>();
-        for(Player p : exPlayers) {
-            if(p.location.size() > 0 ) {
+        for (Player p : exPlayers) {
+            if (p.location.size() > 0) {
                 tempLoc.addAll(p.location);
             }
         }
-        for(LocationInTheFiled l : tempLoc) {
-            for(Player p : players) {
+        for (LocationInTheFiled l : tempLoc) {
+            for (Player p : players) {
                 outerloop:
-                if(p.exchangePalyer == false) {
+                if (p.exchangePalyer == false) {
                     for (LocationInTheFiled pl : p.location) {
                         if (pl.playerLocationRow == l.playerLocationRow &&
                                 pl.playerLocationColumn == l.playerLocationColumn) {
@@ -351,8 +365,34 @@ public class GameData {
 
 
         }
+        boolean findPlayer = true;
+        for (Player p : ret) {
+            findPlayer = true;
+            for (Player p2 : ret) {
+                if (p2.name != p.name) {
+                    if (0 > p.gameTime.compareTo(p2.gameTime)) {
+                        findPlayer = false;
+                        break;
+                    }
+                }
 
-        return ret;
+            }
+            if (findPlayer) {
+                ret2.add(p);
+                Iterator itr = ret.iterator();
+                while (itr.hasNext()) {
+                    Player x = (Player) itr.next();
+                    if (x.name.compareTo(p.name) == 0)
+                        itr.remove();
+                }
+            }
+
+
+            if (exPlayers.size() == ret2.size()) {
+                break;
+            }
+        }
+        return ret2;
     }
 
     public Player getPlayerDataFromLocation(int row, int column) {

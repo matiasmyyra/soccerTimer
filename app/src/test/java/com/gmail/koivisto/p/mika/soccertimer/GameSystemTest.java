@@ -122,7 +122,7 @@ public class GameSystemTest {
         ArrayList<Player> playersWhoGoToField = sut.getNextPlayersToField();
         assertEquals(1,playersWhoGoToField.size());
         ArrayList<Player> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
-        assertEquals(3,playersWhoComesFromFieldToRest.size());
+        assertEquals(1,playersWhoComesFromFieldToRest.size());
         for(Player p : playersWhoGoToField) {
             assertEquals(p.name,exchangePlayerName);
         }
