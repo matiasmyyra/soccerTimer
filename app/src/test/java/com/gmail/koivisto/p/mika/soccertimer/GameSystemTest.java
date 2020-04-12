@@ -127,9 +127,9 @@ public class GameSystemTest {
             assertEquals(p.name,exchangePlayerName);
         }
         for(Player p : playersWhoComesFromFieldToRest) {
-            assertEquals(p.name,playerNameWhoComeToGame);//TODO: nimi väärä kolme mahdollista pelaajaa ei yksi
+            assertEquals(p.name,playerNameWhoComeToGame);
         }
-        sut.doPlayersChange();
+        sut.doPlayersChange(exchangePlayerName,playerNameWhoComeToGame);
     }
 
     private void upDateAndCheckCurrentTimeWithXMinutes(GameData sut,int minutes, GameTime time, boolean isTimeToChangePlayer) {

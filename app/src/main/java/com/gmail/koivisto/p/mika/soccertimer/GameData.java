@@ -416,6 +416,33 @@ public class GameData {
         return ret;
     }
 
-    public void doPlayersChange() {
+    public void doPlayersChange(String exchangePlayerName, String playerNameWhoComeToGame) {
+        //TODO:Missing implementation
+        ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
+        int row = 0;
+        int column = 0;
+        for(Player p : players) {
+            if(p.name == playerNameWhoComeToGame) {
+                p.exchangePalyer = false;
+                location.addAll(p.location);
+                break;
+            }
+        }
+        for(Player p : players) {
+            if(p.name == exchangePlayerName) {
+                p.exchangePalyer = true;
+                p.location.clear();
+                row = p.currentRow;
+                column = p.currentColumn;
+                p.location.addAll(location);
+                break;
+            }
+        }
+        for(Player p : players) {
+            if(p.name == playerNameWhoComeToGame) {
+                p.currentRow = row;
+                p.currentColumn = column;
+            }
+        }
     }
 }
