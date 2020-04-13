@@ -88,8 +88,18 @@ public class CommonTestMethod {
         l3.playerLocationRow = 2;
         location.add(l3);
 
+        addOneLocationMultipleLocation(sut, location,0,2);
+        addOneLocationMultipleLocation(sut, location,1,2);
+        addOneLocationMultipleLocation(sut, location,2,2);
+
         return addOnePlayerMultibleLocation(sut, location, true);
     }
+
+    private void addOneLocationMultipleLocation(GameData sut, ArrayList<LocationInTheFiled> location, int currentColumn, int currentRow) {
+        sut.AddMoreLocationToFieldPlayer(currentColumn,currentRow,location);
+
+    }
+
     private String addOnePlayerMultibleLocation(GameData sut, ArrayList<LocationInTheFiled> location, boolean exchangePalyer) {
         countPlayer++;
         Player p = new Player();

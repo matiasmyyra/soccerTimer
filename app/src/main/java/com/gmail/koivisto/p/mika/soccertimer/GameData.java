@@ -430,14 +430,14 @@ public class GameData {
         int column = 0;
         for(Player p : players) {
             if(p.name == playerNameWhoComeToGame) {
-                p.exchangePalyer = false;
+                p.exchangePalyer = true;
                 location.addAll(p.location);
                 break;
             }
         }
         for(Player p : players) {
             if(p.name == exchangePlayerName) {
-                p.exchangePalyer = true;
+                p.exchangePalyer = false;
                 p.location.clear();
                 row = p.currentRow;
                 column = p.currentColumn;
