@@ -360,7 +360,15 @@ public class GameData {
                     for (LocationInTheFiled pl : p.location) {
                         if (pl.playerLocationRow == l.playerLocationRow &&
                                 pl.playerLocationColumn == l.playerLocationColumn) {
-                            ret.add(p);
+                            boolean addNew = true;
+                            for (Player p_ret : ret) {
+                                if(p.name == p_ret.name) {
+                                    addNew = false;
+                                }
+                            }
+                            if(addNew){
+                                ret.add(p);
+                            }
                             break outerloop;
                         }
 
@@ -377,7 +385,10 @@ public class GameData {
             findPlayer = true;
             for (Player p2 : ret) {
                 if (p2.name != p.name) {
-                    if (0 > p.gameTime.compareTo(p2.gameTime)) {
+                    //Todo: Tässä pitää tutkia aika päivittyykö nyt oikein
+                    Date a = p.gameTime.getTime();
+                    Date b = p2.gameTime.getTime();
+                    if (0 < p.gameTime.compareTo(p2.gameTime)) {
                         findPlayer = false;
                         break;
                     }
@@ -423,30 +434,38 @@ public class GameData {
         return ret;
     }
 
-    public void doPlayersChange(String exchangePlayerName, String playerNameWhoComeToGame) {
+    public void doPlayersChange(String playerNameWhoGoToGame, String playerNameWhoComeFromGame) {
         //TODO:Missing implementation
         ArrayList<LocationInTheFiled> location = new ArrayList<LocationInTheFiled>();
         int row = 0;
         int column = 0;
         for(Player p : players) {
-            if(p.name == playerNameWhoComeToGame) {
-                p.exchangePalyer = true;
+            if(p.name == playerNameWhoGoToGame) {
                 location.addAll(p.location);
                 break;
             }
         }
+
         for(Player p : players) {
-            if(p.name == exchangePlayerName) {
-                p.exchangePalyer = false;
+            if(p.name == playerNameWhoComeFromGame) {
+                p.exchangePalyer = true;
                 p.location.clear();
-                row = p.currentRow;
-                column = p.currentColumn;
                 p.location.addAll(location);
                 break;
             }
         }
+
+
         for(Player p : players) {
-            if(p.name == playerNameWhoComeToGame) {
+            if(p.name == playerNameWhoGoToGame) {
+                p.exchangePalyer = false;
+                row = p.currentRow;
+                column = p.currentColumn;
+                break;
+            }
+        }
+        for(Player p : players) {
+            if(p.name == playerNameWhoComeFromGame) {
                 p.currentRow = row;
                 p.currentColumn = column;
             }
@@ -454,5 +473,8 @@ public class GameData {
         lastPlayerIsChangedTime = (Calendar) gameCurrentTime.clone();
 
 
+    }
+
+    public void AddMoreLocationToFieldPlayer(int currentColumn, int currentRow, ArrayList<LocationInTheFiled> location) {
     }
 }

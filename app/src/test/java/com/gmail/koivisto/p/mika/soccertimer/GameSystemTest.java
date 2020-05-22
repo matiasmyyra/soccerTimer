@@ -111,25 +111,25 @@ public class GameSystemTest {
         CheckThatPlayerChangeDoCorrectly(sut, b.name, c.name);
 
         //Column 3
-        upDateAndCheckCurrentTimeWithXMinutes(sut,10, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,11, time,false);
-        upDateAndCheckCurrentTimeWithXMinutes(sut,12, time,true);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,false);
+        upDateAndCheckCurrentTimeWithXMinutes(sut,1, time,true);
         CheckThatPlayerChangeDoCorrectly(sut, c.name, fistExchangePlayerName);
 
     }
 
-    private void CheckThatPlayerChangeDoCorrectly(GameData sut, String exchangePlayerName, String playerNameWhoComeToGame) {
+    private void CheckThatPlayerChangeDoCorrectly(GameData sut, String playerNameWhoGoToGame, String playerNameWhoComeFromGame) {
         ArrayList<Player> playersWhoGoToField = sut.getNextPlayersToField();
         assertEquals(1,playersWhoGoToField.size());
         ArrayList<Player> playersWhoComesFromFieldToRest = sut.getNextWhoComesFromFieldToRest();
         assertEquals(1,playersWhoComesFromFieldToRest.size());
         for(Player p : playersWhoGoToField) {
-            assertEquals(p.name,exchangePlayerName);
+            assertEquals(p.name,playerNameWhoGoToGame);
         }
         for(Player p : playersWhoComesFromFieldToRest) {
-            assertEquals(p.name,playerNameWhoComeToGame);
+            assertEquals(p.name,playerNameWhoComeFromGame);
         }
-        sut.doPlayersChange(exchangePlayerName,playerNameWhoComeToGame);
+        sut.doPlayersChange(playerNameWhoGoToGame,playerNameWhoComeFromGame);
     }
 
     private void upDateAndCheckCurrentTimeWithXMinutes(GameData sut,int minutes, GameTime time, boolean isTimeToChangePlayer) {
